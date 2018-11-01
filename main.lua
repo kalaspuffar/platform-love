@@ -1,4 +1,5 @@
 local bump       = require 'bump'
+local lurker     = require 'lurker'
 
 local instructions = [[
   bump.lua simple demo
@@ -50,7 +51,7 @@ end
 -- Player functions
 local player = { x=50,y=600-70,w=20,h=20, speed = 80, jump = 100, jumping = 0 }
 
-local function updatePlayer(dt)
+local function updatePlayer(dt)    
   local speed = player.speed
   local jump = player.jump
 
@@ -101,6 +102,7 @@ local function drawBlocks()
 end
 
 function love.load()
+  lurker.postswap = function(f) print("File " .. f .. " was swapped") end
   world:add(player, player.x, player.y, player.w, player.h)
 
   addBlock(0,       0,     800, 32)
@@ -110,10 +112,11 @@ function love.load()
 
   addBlock(200, 600-80, 50, 5)
   addBlock(300, 600-110, 50, 5)
-  addBlock(400, 600-140, 50, 5)
+  addBlock(400, 600-140, 50, 10)
 end
 
 function love.update(dt)
+  lurker.update()
   cols_len = 0
   updatePlayer(dt)  
 end
