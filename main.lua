@@ -17,6 +17,7 @@ function love.load()
 
     local backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
+    backgroundSound:setVolume(0.7)
     backgroundSound:play()
 
 	-- Set world meter size (in pixels)

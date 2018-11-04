@@ -29,7 +29,9 @@ Player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
     self.walkSound:setLooping(true)
+    self.walkSound:setVolume(0.2)
     self.jumpSound = love.audio.newSource("assets/sound/jump_03.wav", "static")
+    self.jumpSound:setVolume(0.2)
 
     self.elapsedTime = 0
     self.currentFrame = 1
