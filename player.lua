@@ -1,6 +1,6 @@
-Player = {}
+player = {}
 
-Player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
+player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     local self = self or {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight

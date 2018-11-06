@@ -1,24 +1,48 @@
 -- This example uses the included Box2D (love.physics) plugin!!
 
-local sti = require "sti"
-require("Player")
+local sti = require("sti")
+local json = require("json")
+local Moan = require("Moan")
+
+require("player")
 
 local windowHeight
 local windowWidth
 local map
 local world
 
-local player
+local hero
 
 function love.load()
 	-- Grab window size
 	windowWidth  = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
 
+    -- The FontStruction “Pixel UniCode” (https://fontstruct.com/fontstructions/show/908795)
+	-- by “ivancr72” is licensed under a Creative Commons Attribution license
+	-- (http://creativecommons.org/licenses/by/3.0/)
+    Moan.font = love.graphics.newFont("assets/fonts/Pixel.ttf", 32)
+
+	-- Audio from bfxr (https://www.bfxr.net/)
+    Moan.typeSound = love.audio.newSource("assets/sound/typeSound.wav", "static")
+    Moan.typeSound:setVolume(0.3)
+	Moan.optionOnSelectSound = love.audio.newSource("assets/sound/optionSelect.wav", "static")
+	Moan.optionSwitchSound = love.audio.newSource("assets/sound/optionSwitch.wav", "static")
     local backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
     backgroundSound:setVolume(0.7)
     backgroundSound:play()
+
+    math.randomseed(os.time())
+
+    local mainScript = json.decode(love.filesystem.read('assets/scripts/main.json'))
+    local introSc = mainScript.intro1
+
+    avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
+    Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
+    local voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
+    voiceLine:setVolume(0.5)
+    voiceLine:play()
 
 	-- Set world meter size (in pixels)
 	love.physics.setMeter(64)
@@ -37,7 +61,7 @@ function love.load()
 	world = love.physics.newWorld(0, 8.91 * 64, true)
 	map:box2d_init(world)
 
-    player = Player.new(
+    hero = player.new(
         map.objects[startPosId].x, 
         map.objects[startPosId].y, 
         world,
@@ -49,29 +73,33 @@ end
 local elapsedTime = 0
 function love.update(dt)
     if(love.keyboard.isDown("left")) then
-        player:moveLeft()
+        hero:moveLeft()
     end
     if(love.keyboard.isDown("right")) then
-        player:moveRight()
+        hero:moveRight()
     end
 
     world:update(dt)
     map:update(dt)
-    player:update(dt)
+    hero:update(dt)
+    Moan.update(dt)
 end
 
 function love.draw()        
 	love.graphics.setColor(255, 255, 255)
-	map:draw(player:getScreenX(), player:getScreenY())
-    player:draw()
-
+	map:draw(hero:getScreenX(), hero:getScreenY())
+    hero:draw()
+    
+    Moan.draw()
 	--love.graphics.setColor(255, 0, 0)
-    --map:box2d_draw(player:getScreenX(), player:getScreenY())
+    --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
 end
 
 function love.keypressed(key)
+    Moan.keyreleased(key)
+
     if(key == "up") then
-        player:jump()
+        hero:jump()
     end
 end
