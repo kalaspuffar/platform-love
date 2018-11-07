@@ -13,6 +13,11 @@ local world
 
 local hero
 
+local voiceLine
+local mainScript
+local currentScript = "intro1"
+local currentScriptPlace = 1
+
 function love.load()
 	-- Grab window size
 	windowWidth  = love.graphics.getWidth()
@@ -25,24 +30,17 @@ function love.load()
 
 	-- Audio from bfxr (https://www.bfxr.net/)
     Moan.typeSound = love.audio.newSource("assets/sound/typeSound.wav", "static")
-    Moan.typeSound:setVolume(0.3)
+    Moan.typeSound:setVolume(0.01)
 	Moan.optionOnSelectSound = love.audio.newSource("assets/sound/optionSelect.wav", "static")
 	Moan.optionSwitchSound = love.audio.newSource("assets/sound/optionSwitch.wav", "static")
     local backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
-    backgroundSound:setVolume(0.7)
+    backgroundSound:setVolume(0.3)
     backgroundSound:play()
 
     math.randomseed(os.time())
 
-    local mainScript = json.decode(love.filesystem.read('assets/scripts/main.json'))
-    local introSc = mainScript.intro1
-
-    avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
-    Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
-    local voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
-    voiceLine:setVolume(0.5)
-    voiceLine:play()
+    mainScript = json.decode(love.filesystem.read('assets/scripts/main.json'))
 
 	-- Set world meter size (in pixels)
 	love.physics.setMeter(64)
@@ -62,8 +60,8 @@ function love.load()
 	map:box2d_init(world)
 
     hero = player.new(
-        map.objects[startPosId].x, 
-        map.objects[startPosId].y, 
+        map.objects[startPosId].x,
+        map.objects[startPosId].y,
         world,
         windowWidth / 2,
         windowHeight / 2
@@ -85,11 +83,11 @@ function love.update(dt)
     Moan.update(dt)
 end
 
-function love.draw()        
+function love.draw()
 	love.graphics.setColor(255, 255, 255)
 	map:draw(hero:getScreenX(), hero:getScreenY())
     hero:draw()
-    
+
     Moan.draw()
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
@@ -97,7 +95,27 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    Moan.keyreleased(key)
+    if(key == "space") then
+        Moan.clearMessages()
+        if(voiceLine) then
+            voiceLine:stop()
+        end
+
+        if(table.getn(mainScript[currentScript]) + 1 > currentScriptPlace) then
+            local introSc = mainScript[currentScript][currentScriptPlace]
+
+            avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
+            Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
+
+            if(introSc.voice) then
+                voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
+                voiceLine:setVolume(0.1)
+                voiceLine:play()
+            end
+
+            currentScriptPlace = currentScriptPlace + 1
+        end
+    end
 
     if(key == "up") then
         hero:jump()
