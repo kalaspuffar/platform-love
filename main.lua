@@ -56,7 +56,8 @@ function love.load()
         end
     end
 
-	world = love.physics.newWorld(0, 8.91 * 64, true)
+    world = love.physics.newWorld(0, 8.91 * 64, true)
+    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 	map:box2d_init(world)
 
     hero = player.new(
@@ -120,4 +121,39 @@ function love.keypressed(key)
     if(key == "up") then
         hero:jump()
     end
+end
+
+function beginContact(a, b, coll)
+    for k,v in pairs(a:getUserData()) do
+        print(k)
+        print(v)
+    end
+--    x,y = coll:getNormal()
+--    if(a and b and x and y) then
+--        print(a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y)
+--    end
+end
+
+
+function endContact(a, b, coll)
+--    print('LOST')
+--    persisting = 0    -- reset since they're no longer touching
+--    if(a and b) then
+--        print("\n"..a:getUserData().." uncolliding with "..b:getUserData())
+--    end
+end
+
+function preSolve(a, b, coll)
+--    print('SOLVED')
+--    if persisting == 0 then    -- only say when they first start touching
+--        print(a:getUserData().." touching "..b:getUserData())
+--    elseif persisting < 20 then    -- then just start counting
+--        print(persisting)
+--    end
+--    persisting = persisting + 1    -- keep track of how many updates they've been touching for
+end
+
+function postSolve(a, b, coll, normalimpulse, tangentimpulse)
+--    print('AFTER')
+-- we won't do anything with this function
 end
