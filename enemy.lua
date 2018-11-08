@@ -1,14 +1,12 @@
-player = {}
+enemy = {}
 
-player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
-    local self = self or {}
+enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
+    local self = {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight
     self.x = x
     self.y = y
 
-    self.screenX = 0
-    self.screenY = 0
     self.playerX = 0
     self.playerY = 0
     self.scale = 0
@@ -45,17 +43,24 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.frames[5] = love.graphics.newQuad(72, 72, 32, 48, self.playerFile:getDimensions())
     self.activeFrame = self.frames[self.currentFrame]
 
-    self.draw = function()
+    self.draw = function(self, screenX, screenY)
         love.graphics.draw(
             self.playerFile,
             self.activeFrame,
-            self.playerX,
-            self.playerY,
+            self.playerX + screenX,
+            self.playerY + screenY,
             0,
             self.scale,
             2
         )
     end
+
+    self.getX = function()
+        return playerX
+    end
+
+    self.physics.body:applyLinearImpulse(100, 0)
+    self.goingRight = true
 
     self.moveLeft = function()
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
@@ -85,50 +90,27 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         end
     end
 
-    self.getScreenX = function()
-        return self.screenX
-    end
-
-    self.getScreenY = function()
-        return self.screenY
-    end
-
-    self.update = function(a, dt)
+    self.update = function(self, dt)
         self.elapsedTime = self.elapsedTime + dt
 
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
 
-        if(velocity < 10 and velocity > -10) then
-            if(self.walkSound:isPlaying()) then
-                self.walkSound:stop()
-            end
-
-            if(self.currentFrame == 1 and self.elapsedTime > 2) then
-                self.currentFrame = 2
-                self.elapsedTime = 0
-            elseif(self.currentFrame == 2 and self.elapsedTime > 0.3) then
-                self.currentFrame = 1
-                self.elapsedTime = 0
-            elseif(self.currentFrame > 2) then
-                self.currentFrame = 1
-            end
-        else
-            if(not self.walkSound:isPlaying()) then
-                self.walkSound:play()
-            end
-            if(self.currentFrame == 3 and self.elapsedTime > 0.2) then
-                self.currentFrame = 4
-                self.elapsedTime = 0
-            elseif(self.currentFrame == 4 and self.elapsedTime > 0.2) then
-                self.currentFrame = 5
-                self.elapsedTime = 0
-            elseif(self.currentFrame == 5 and self.elapsedTime > 0.2) then
-                self.currentFrame = 3
-                self.elapsedTime = 0
-            elseif(self.currentFrame < 3) then
-                self.currentFrame = 3
-            end
+        if(not self.walkSound:isPlaying()) then
+            self.walkSound:play()
         end
+        if(self.currentFrame == 3 and self.elapsedTime > 0.2) then
+            self.currentFrame = 4
+            self.elapsedTime = 0
+        elseif(self.currentFrame == 4 and self.elapsedTime > 0.2) then
+            self.currentFrame = 5
+            self.elapsedTime = 0
+        elseif(self.currentFrame == 5 and self.elapsedTime > 0.2) then
+            self.currentFrame = 3
+            self.elapsedTime = 0
+        elseif(self.currentFrame < 3) then
+            self.currentFrame = 3
+        end
+
         self.activeFrame = self.frames[self.currentFrame]
 
         self.scale = 2
@@ -138,19 +120,8 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
             self.scale = -2
         end
 
-        if(self.physics.body:getX() > self.windowHalfWidth) then
-            self.playerX = self.windowHalfWidth + offset
-            self.screenX = -(self.physics.body:getX() - self.windowHalfWidth)
-        else
-            self.playerX = self.physics.body:getX() + offset
-        end
-
-        if(self.physics.body:getY() > self.windowHalfHeight) then
-            self.playerY = self.windowHalfHeight - 64
-            self.screenY = -(self.physics.body:getY() - self.windowHalfHeight)
-        else
-            self.playerY = self.physics.body:getY() - 64
-        end
+        self.playerX = self.physics.body:getX() + offset
+        self.playerY = self.physics.body:getY() - 64
     end
 
     return self

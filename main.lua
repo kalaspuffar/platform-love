@@ -5,13 +5,16 @@ local json = require("json")
 local Moan = require("Moan")
 
 require("player")
+require("enemy")
 
 local windowHeight
 local windowWidth
 local map
 local world
 
+local enemies = {}
 local hero
+local mute = true
 
 local voiceLine
 local mainScript
@@ -36,7 +39,9 @@ function love.load()
     local backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
     backgroundSound:setVolume(0.3)
-    backgroundSound:play()
+    if(not mute) then
+        backgroundSound:play()
+    end
 
     math.randomseed(os.time())
 
@@ -48,17 +53,26 @@ function love.load()
 	-- Load a map exported to Lua from Tiled
 	map = sti("assets/maps/firstmap.lua", { "box2d" })
 
+    world = love.physics.newWorld(0, 8.91 * 64, true)
+    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+	map:box2d_init(world)
+
     local startPosId = 0
     for k,v in pairs(map.objects) do
         if(v.name == "StartPos") then
             startPosId = k
-            break
+        end
+
+        if(v.type == "enemy") then
+            table.insert(enemies, enemy.new(
+                v.x,
+                v.y,
+                world,
+                windowWidth / 2,
+                windowHeight / 2
+            ))
         end
     end
-
-    world = love.physics.newWorld(0, 8.91 * 64, true)
-    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-	map:box2d_init(world)
 
     hero = player.new(
         map.objects[startPosId].x,
@@ -81,6 +95,11 @@ function love.update(dt)
     world:update(dt)
     map:update(dt)
     hero:update(dt)
+
+    for k,v in pairs(enemies) do
+        v:update(dt)
+    end
+
     Moan.update(dt)
 end
 
@@ -89,45 +108,71 @@ function love.draw()
 	map:draw(hero:getScreenX(), hero:getScreenY())
     hero:draw()
 
+    for k,v in pairs(enemies) do
+        v:draw(hero:getScreenX(), hero:getScreenY())
+    end
+
     Moan.draw()
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
 end
 
+function sayNext()
+    Moan.clearMessages()
+    if(voiceLine) then
+        voiceLine:stop()
+    end
+
+    if(table.getn(mainScript[currentScript]) + 1 > currentScriptPlace) then
+        local introSc = mainScript[currentScript][currentScriptPlace]
+
+        avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
+        Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
+
+        if(introSc.voice) then
+            voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
+            voiceLine:setVolume(0.1)
+            voiceLine:play()
+        end
+
+        currentScriptPlace = currentScriptPlace + 1
+    end
+end
+
 function love.keypressed(key)
     if(key == "space") then
-        Moan.clearMessages()
-        if(voiceLine) then
-            voiceLine:stop()
-        end
-
-        if(table.getn(mainScript[currentScript]) + 1 > currentScriptPlace) then
-            local introSc = mainScript[currentScript][currentScriptPlace]
-
-            avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
-            Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
-
-            if(introSc.voice) then
-                voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
-                voiceLine:setVolume(0.1)
-                voiceLine:play()
-            end
-
-            currentScriptPlace = currentScriptPlace + 1
-        end
+        sayNext()
     end
 
     if(key == "up") then
         hero:jump()
     end
+
+    if(key == "escape") then
+        love.event.quit()
+    end
 end
 
 function beginContact(a, b, coll)
-    for k,v in pairs(a:getUserData()) do
-        print(k)
-        print(v)
+    if(a:isSensor()) then
+        if(a:getUserData().properties.type == 'dialog') then
+            currentScript = a:getUserData().properties.script
+            currentScriptPlace = 1
+            sayNext()
+        end
     end
+
+--    for k,v in pairs(a:getUserData()) do
+--        print(k)
+--        print(v)
+--    end
+--    if(b:getUserData()) then
+--        for k,v in pairs(b:getUserData()) do
+--            print(k)
+--            print(v)
+--        end
+--    end
 --    x,y = coll:getNormal()
 --    if(a and b and x and y) then
 --        print(a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y)
