@@ -69,7 +69,8 @@ function love.load()
                 v.y,
                 world,
                 windowWidth / 2,
-                windowHeight / 2
+                windowHeight / 2,
+                v.properties
             ))
         end
     end
@@ -157,6 +158,8 @@ end
 function beginContact(a, b, coll)
     if(a:isSensor()) then
         if(a:getUserData().properties.type == 'dialog') then
+            print(b:getUserData().properties)
+
             currentScript = a:getUserData().properties.script
             currentScriptPlace = 1
             sayNext()
@@ -189,7 +192,10 @@ function endContact(a, b, coll)
 end
 
 function preSolve(a, b, coll)
---    print('SOLVED')
+    if(a:getUserData().properties.type) then
+        print('SOLVED ' .. a:getUserData().properties.type)
+    end
+
 --    if persisting == 0 then    -- only say when they first start touching
 --        print(a:getUserData().." touching "..b:getUserData())
 --    elseif persisting < 20 then    -- then just start counting
