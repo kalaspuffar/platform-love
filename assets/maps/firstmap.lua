@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 33,
+  nextobjectid = 34,
   properties = {},
   tilesets = {
     {
@@ -2063,7 +2063,7 @@ return {
   layers = {
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "mainmap",
       x = 0,
       y = 0,
       width = 100,
@@ -2276,10 +2276,10 @@ return {
           name = "StartPos",
           type = "player",
           shape = "rectangle",
-          x = 80,
-          y = 320,
-          width = 0,
-          height = 0,
+          x = 133,
+          y = 315,
+          width = 64,
+          height = 64,
           rotation = 0,
           visible = true,
           properties = {}

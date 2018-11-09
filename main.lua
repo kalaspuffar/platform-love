@@ -106,8 +106,21 @@ function love.update(dt)
     map:update(dt)
     hero:update(dt)
 
+
     for k,v in pairs(enemies) do
         v:update(dt)
+
+        if(v:getX()) then
+            tx, ty = map:convertPixelToTile(v:getX() + 32, v:getY() + 32)
+            print(math.floor(ty+0.5)+2 .. "x" .. math.floor(tx+0.5)-1)
+            if(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)+1]) then
+                print("left")
+                v:moveLeft()
+            elseif(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)-1]) then
+                print("right")
+                v:moveRight()
+            end
+        end
     end
 
     Moan.update(dt)
@@ -199,9 +212,17 @@ function endContact(a, b, coll)
 end
 
 function preSolve(a, b, coll)
-    if(a:getUserData().properties.type) then
-        print('SOLVED ' .. a:getUserData().properties.type)
-    end
+--    if(b:getUserData().type == 'enemy') then
+--        nx, ny = coll:getNormal()
+--
+--        if(nx > 0) then
+--            enemies[1].moveRight()
+--        elseif(nx < 0) then
+--            enemies[1].moveLeft()
+--        end
+--        print(nx .. "x" .. ny)
+--        print('SOLVED ' .. b:getUserData().type)
+--    end
 
 --    if persisting == 0 then    -- only say when they first start touching
 --        print(a:getUserData().." touching "..b:getUserData())
