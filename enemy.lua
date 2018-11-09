@@ -1,6 +1,6 @@
 enemy = {}
 
-enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, properties)
+enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, userData)
     local self = {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight
@@ -10,6 +10,7 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, prop
     self.playerX = 0
     self.playerY = 0
     self.scale = 0
+    self.goingRight = false
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -25,9 +26,7 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, prop
         1
     )
     self.physics.fixture:setFriction(1.0)
-    self.physics.fixture:setUserData({
-        properties = properties
-    })
+    self.physics.fixture:setUserData(userData)
 
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
@@ -63,7 +62,6 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, prop
         return playerX
     end
 
-    self.physics.body:applyLinearImpulse(-200, 0)
     self.moveLeft = function()
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
         if(velocity > -100) then
@@ -91,6 +89,15 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, prop
         self.elapsedTime = self.elapsedTime + dt
 
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
+
+        if(velocity < 10 and velocity > -10) then
+            if(self.goingRight) then
+                self.physics.body:applyLinearImpulse(200, 0)
+            else
+                self.physics.body:applyLinearImpulse(-200, 0)
+            end
+            self.goingRight = not self.goingRight
+        end
 
         if(not self.walkSound:isPlaying()) then
             self.walkSound:play()

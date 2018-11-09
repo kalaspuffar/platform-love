@@ -1,6 +1,6 @@
 player = {}
 
-player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, properties)
+player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, userData)
     local self = self or {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight
@@ -27,9 +27,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, pro
         1
     )
     self.physics.fixture:setFriction(1.0)
-    self.physics.fixture:setUserData({
-        properties = properties
-    })
+    self.physics.fixture:setUserData(userData)
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
     self.walkSound:setLooping(true)

@@ -2274,7 +2274,7 @@ return {
         {
           id = 20,
           name = "StartPos",
-          type = "",
+          type = "player",
           shape = "rectangle",
           x = 80,
           y = 320,

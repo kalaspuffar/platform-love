@@ -709,7 +709,7 @@
   <object id="17" type="collectable" gid="51" x="961" y="189" width="64" height="64"/>
   <object id="18" type="enemy" gid="52" x="819" y="190" width="64" height="64"/>
   <object id="19" type="enemy" gid="52" x="934" y="376" width="67" height="68"/>
-  <object id="20" name="StartPos" x="80" y="320"/>
+  <object id="20" name="StartPos" type="player" x="80" y="320"/>
   <object id="31" name="intro1" type="dialog" x="447" y="194" width="115" height="189">
    <properties>
     <property name="collidable" type="bool" value="true"/>

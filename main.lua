@@ -70,7 +70,11 @@ function love.load()
                 world,
                 windowWidth / 2,
                 windowHeight / 2,
-                v.properties
+                {
+                    name = v.name,
+                    type = v.type,
+                    properties = v.properties
+                }
             ))
         end
     end
@@ -80,7 +84,12 @@ function love.load()
         map.objects[startPosId].y,
         world,
         windowWidth / 2,
-        windowHeight / 2
+        windowHeight / 2,
+        {
+            name = map.objects[startPosId].name,
+            type = map.objects[startPosId].type,
+            properties = map.objects[startPosId].properties
+        }
     )
 end
 
@@ -157,9 +166,7 @@ end
 
 function beginContact(a, b, coll)
     if(a:isSensor()) then
-        if(a:getUserData().properties.type == 'dialog') then
-            print(b:getUserData().properties)
-
+        if(a:getUserData().properties.type == 'dialog' and b:getUserData().type == 'player') then
             currentScript = a:getUserData().properties.script
             currentScriptPlace = 1
             sayNext()
