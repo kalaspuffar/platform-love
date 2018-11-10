@@ -30,7 +30,6 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, use
     self.physics.fixture:setUserData(userData)
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
-    self.walkSound:setLooping(true)
     self.walkSound:setVolume(0.05)
     self.jumpSound = love.audio.newSource("assets/sound/jump_03.wav", "static")
     self.jumpSound:setVolume(0.05)
@@ -56,6 +55,10 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, use
             self.scale,
             2
         )
+    end
+
+    self.stop = function()
+        self.physics.body:setLinearVelocity(0, 0)
     end
 
     self.moveLeft = function()
@@ -101,7 +104,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, use
 
         if(velocity < 10 and velocity > -10) then
             if(self.walkSound:isPlaying()) then
-                self.walkSound:stop()
+                self.walkSound:pause()
             end
 
             if(self.currentFrame == 1 and self.elapsedTime > 2) then

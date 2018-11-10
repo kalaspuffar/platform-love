@@ -35,7 +35,6 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
 
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
-    self.walkSound:setLooping(true)
     self.walkSound:setVolume(0.05)
     self.jumpSound = love.audio.newSource("assets/sound/jump_03.wav", "static")
     self.jumpSound:setVolume(0.05)

@@ -15,7 +15,7 @@ local world
 
 local enemies = {}
 local hero
-local mute = true
+local mute = false
 
 local voiceLine
 local mainScript
@@ -114,7 +114,7 @@ function love.update(dt)
     if(love.keyboard.isDown("right")) then
         hero:moveRight()
     end
-
+ 
     world:update(dt)
     map:update(dt)
     hero:update(dt)
