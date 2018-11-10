@@ -8,8 +8,8 @@ return {
   height = 100,
   tilewidth = 64,
   tileheight = 64,
-  nextlayerid = 3,
-  nextobjectid = 43,
+  nextlayerid = 4,
+  nextobjectid = 117,
   properties = {},
   tilesets = {
     {
@@ -1592,7 +1592,6 @@ return {
         },
         {
           id = 50,
-          type = "collectable",
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -1604,24 +1603,19 @@ return {
             properties = {},
             objects = {
               {
-                id = 1,
+                id = 2,
                 name = "",
-                type = "collectable",
-                shape = "polygon",
-                x = 31.3333,
-                y = 17.3333,
-                width = 0,
-                height = 0,
+                type = "",
+                shape = "rectangle",
+                x = 13,
+                y = 18,
+                width = 36.6667,
+                height = 36,
                 rotation = 0,
                 visible = true,
-                polygon = {
-                  { x = 0, y = 0 },
-                  { x = 18.6667, y = 17.6667 },
-                  { x = 1, y = 35.6667 },
-                  { x = -17, y = 18.3333 }
-                },
                 properties = {
-                  ["collidable"] = true
+                  ["type"] = "collectable",
+                  ["value"] = "gem"
                 }
               }
             }
@@ -1629,7 +1623,6 @@ return {
         },
         {
           id = 51,
-          type = "enemy",
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -1666,7 +1659,6 @@ return {
                 },
                 properties = {
                   ["collidable"] = true,
-                  ["sensor"] = true,
                   ["type"] = "enemy"
                 }
               }
@@ -2185,7 +2177,7 @@ return {
     {
       type = "objectgroup",
       id = 2,
-      name = "Objects",
+      name = "characters",
       visible = true,
       opacity = 0,
       offsetx = 0,
@@ -2225,12 +2217,226 @@ return {
           }
         },
         {
-          id = 40,
+          id = 65,
+          name = "end",
+          type = "dialog",
+          shape = "rectangle",
+          x = 1662,
+          y = 958,
+          width = 126,
+          height = 122,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["collidable"] = true,
+            ["script"] = "end",
+            ["sensor"] = true,
+            ["type"] = "dialog"
+          }
+        },
+        {
+          id = 101,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 256,
+          y = 448,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 64,
+          y = 704,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 103,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1344,
+          y = 1152,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 104,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1344,
+          y = 1216,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 105,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1408,
+          y = 1152,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 106,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1408,
+          y = 1216,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 107,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1472,
+          y = 1152,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 109,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1600,
+          y = 1152,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 110,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1536,
+          y = 1152,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 111,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1472,
+          y = 1216,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 112,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1536,
+          y = 1216,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 113,
+          name = "",
+          type = "collectable",
+          shape = "rectangle",
+          x = 1600,
+          y = 1216,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 51,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 114,
           name = "",
           type = "enemy",
           shape = "rectangle",
-          x = 770,
-          y = 959,
+          x = 768,
+          y = 960,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 52,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 115,
+          name = "",
+          type = "enemy",
+          shape = "rectangle",
+          x = 1280,
+          y = 1088,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 52,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 116,
+          name = "",
+          type = "enemy",
+          shape = "rectangle",
+          x = 1728,
+          y = 1088,
           width = 64,
           height = 64,
           rotation = 0,

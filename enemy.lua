@@ -2,7 +2,7 @@ local json = require("json")
 
 enemy = {}
 
-enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, userData)
+enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     local self = {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight
@@ -31,7 +31,7 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
         1
     )
     self.physics.fixture:setFriction(1.0)
-    self.physics.fixture:setUserData(userData)
+    self.physics.fixture:setUserData(self)
 
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
@@ -64,6 +64,10 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
             self.scale,
             self.enemySize
         )
+    end
+
+    self.type = function()
+        return "enemy"
     end
 
     self.getX = function()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="43">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="117">
  <tileset firstgid="1" name="Tiles_64x64" tilewidth="64" tileheight="64" tilecount="64" columns="8">
   <image source="Tiles_64x64.png" trans="000000" width="512" height="512"/>
   <tile id="0">
@@ -464,11 +464,11 @@
   </tile>
   <tile id="50" type="collectable">
    <objectgroup draworder="index">
-    <object id="1" type="collectable" x="31.3333" y="17.3333">
+    <object id="2" x="13" y="18" width="36.6667" height="36">
      <properties>
-      <property name="collidable" type="bool" value="true"/>
+      <property name="type" value="collectable"/>
+      <property name="value" value="gem"/>
      </properties>
-     <polygon points="0,0 18.6667,17.6667 1,35.6667 -17,18.3333"/>
     </object>
    </objectgroup>
   </tile>
@@ -477,7 +477,6 @@
     <object id="1" type="enemy" x="15" y="62.3333">
      <properties>
       <property name="collidable" type="bool" value="true"/>
-      <property name="sensor" type="bool" value="true"/>
       <property name="type" value="enemy"/>
      </properties>
      <polygon points="0,0 5.66667,-6 12.3333,-6 13,-14 -8,-21.3333 -9,-45.3333 3.66667,-52.3333 27.6667,-52.6667 41,-39.6667 40.3333,-21.3333 22.3333,-1"/>
@@ -702,7 +701,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Objects" opacity="0">
+ <objectgroup id="2" name="characters" opacity="0">
   <object id="20" name="StartPos" type="player" x="97" y="35" width="64" height="64"/>
   <object id="31" name="intro1" type="dialog" x="269" y="962" width="115" height="189">
    <properties>
@@ -712,6 +711,26 @@
     <property name="type" value="dialog"/>
    </properties>
   </object>
-  <object id="40" type="enemy" gid="52" x="770" y="959" width="64" height="64"/>
+  <object id="65" name="end" type="dialog" x="1662" y="958" width="126" height="122">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="script" value="end"/>
+    <property name="sensor" type="bool" value="true"/>
+    <property name="type" value="dialog"/>
+   </properties>
+  </object>
+  <object id="101" gid="51" x="256" y="448" width="64" height="64"/>
+  <object id="102" gid="51" x="64" y="704" width="64" height="64"/>
+  <object id="103" gid="51" x="1344" y="1152" width="64" height="64"/>
+  <object id="104" gid="51" x="1344" y="1216" width="64" height="64"/>
+  <object id="105" gid="51" x="1408" y="1152" width="64" height="64"/>
+  <object id="106" gid="51" x="1408" y="1216" width="64" height="64"/>
+  <object id="107" gid="51" x="1472" y="1152" width="64" height="64"/>
+  <object id="109" gid="51" x="1600" y="1152" width="64" height="64"/>
+  <object id="110" gid="51" x="1536" y="1152" width="64" height="64"/>
+  <object id="111" gid="51" x="1472" y="1216" width="64" height="64"/>
+  <object id="112" gid="51" x="1536" y="1216" width="64" height="64"/>
+  <object id="113" gid="51" x="1600" y="1216" width="64" height="64"/>
+  <object id="114" gid="52" x="768" y="960" width="64" height="64"/>
  </objectgroup>
 </map>

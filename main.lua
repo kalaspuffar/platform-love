@@ -7,17 +7,21 @@ local lurker = require("lurker")
 
 require("player")
 require("enemy")
+require("collectable")
 
 local windowHeight
 local windowWidth
 local map
 local world
 local backgroundSound
+local collectGemSound
 
 local enemies = {}
+local collectables = {}
 local hero
 local mute = false
 
+local score = 0
 local voiceLine
 local mainScript
 local currentScript
@@ -46,6 +50,10 @@ function love.load()
     Moan.typeSound:setVolume(0.01)
 	Moan.optionOnSelectSound = love.audio.newSource("assets/sound/optionSelect.wav", "static")
 	Moan.optionSwitchSound = love.audio.newSource("assets/sound/optionSwitch.wav", "static")
+
+    collectGemSound = love.audio.newSource("assets/sound/gem.wav", "static")
+    collectGemSound:setVolume(0.4)
+
     backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
     backgroundSound:setVolume(0.3)
@@ -60,7 +68,7 @@ function love.load()
 	-- Set world meter size (in pixels)
 	love.physics.setMeter(64)
 
-	-- Load a map exported to Lua from Tiled
+    -- Load a map exported to Lua from Tiled
 	map = sti("assets/maps/firstmap.lua", { "box2d" })
 
     world = love.physics.newWorld(0, 8.91 * 64, true)
@@ -79,13 +87,17 @@ function love.load()
                 v.y,
                 world,
                 windowWidth / 2,
-                windowHeight / 2,
-                {
-                    name = v.name,
-                    type = v.type,
-                    properties = v.properties
-                }
+                windowHeight / 2
             ))
+        end   
+
+        if(v.type == "collectable") then
+            table.insert(collectables, collectable.new(
+                v.x,
+                v.y,
+                world
+            ))
+            
         end
     end
 
@@ -102,12 +114,15 @@ function love.load()
         }
     )
 
-    lurker.preswap = function(f) 
+    lurker.preswap = function(f)
         backgroundSound:stop()
     end
 
     lurker.postswap = function(f) 
         print(f .. " was swapped")
+        if(f == 'assets/maps/firstmap.lua') then
+            love:load()
+        end
     end
 end
 
@@ -157,6 +172,9 @@ function love.draw()
     map:draw(hero:getScreenX(), hero:getScreenY())
     hero:draw()
 
+    for k,v in pairs(collectables) do
+        v:draw(hero:getScreenX(), hero:getScreenY())
+    end
     for k,v in pairs(enemies) do
         v:draw(hero:getScreenX(), hero:getScreenY())
     end
@@ -165,6 +183,8 @@ function love.draw()
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Score: " .. score, 20, 20, 0, 2, 2)
 end
 
 function sayNext()
@@ -173,7 +193,7 @@ function sayNext()
         voiceLine:stop()
     end
 
-    if(not currentScript) then
+    if(not currentScript or not mainScript[currentScript]) then
         return
     end
     
@@ -185,7 +205,7 @@ function sayNext()
 
         if(introSc.voice) then
             voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
-            voiceLine:setVolume(0.1)
+            voiceLine:setVolume(0.5)
             voiceLine:play()
         end
 
@@ -194,6 +214,10 @@ function sayNext()
 end
 
 function love.keypressed(key)
+    if(key == "r") then        
+        backgroundSound:stop()
+        love:load()
+    end
     if(key == "space") then
         sayNext()
     end
@@ -212,15 +236,23 @@ function love.keypressed(key)
 end
 
 function beginContact(a, b, coll)
-    if(a:isSensor()) then
-        if(a:getUserData().properties.type == 'dialog' and b:getUserData().type == 'player') then
+    if(a:isSensor() and a:getUserData().properties) then
+        if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
+            a:destroy()
             currentScript = a:getUserData().properties.script
             currentScriptPlace = 1
             sayNext()
         end
+    end    
+        
+    if(a:isSensor() and a:getUserData().type) then
+        if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
+            a:getUserData():hide()
+            score = score + 20
+            collectGemSound:play()
+        end
     end
 end
-
 
 function endContact(a, b, coll)
 --    print('LOST')

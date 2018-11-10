@@ -18,5 +18,13 @@
             "text": "What was that?\n Let's explore.",
             "voice": "intro1-3.mp3"
         }
+    ], 
+    "end": [
+        {
+            "speaker": "Sara",
+            "image": "sara/sara-sup.png",
+            "text": "This game can't end here?\n Right...",
+            "voice": "end.mp3"
+        }
     ]
 }
