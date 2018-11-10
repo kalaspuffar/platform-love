@@ -1657,10 +1657,7 @@ return {
                   { x = 40.3333, y = -21.3333 },
                   { x = 22.3333, y = -1 }
                 },
-                properties = {
-                  ["collidable"] = true,
-                  ["type"] = "enemy"
-                }
+                properties = {}
               }
             }
           }
@@ -2409,34 +2406,6 @@ return {
           shape = "rectangle",
           x = 768,
           y = 960,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 52,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 115,
-          name = "",
-          type = "enemy",
-          shape = "rectangle",
-          x = 1280,
-          y = 1088,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 52,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 116,
-          name = "",
-          type = "enemy",
-          shape = "rectangle",
-          x = 1728,
-          y = 1088,
           width = 64,
           height = 64,
           rotation = 0,

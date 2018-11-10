@@ -244,7 +244,7 @@ function beginContact(a, b, coll)
             sayNext()
         end
     end    
-        
+            
     if(a:isSensor() and a:getUserData().type) then
         if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
             a:getUserData():hide()

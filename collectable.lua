@@ -24,7 +24,7 @@ collectable.new = function(x, y, physicsWorld)
     self.physics.fixture:setUserData(self)
 
     self.collectableSprites = love.graphics.newImage("assets/maps/Tiles_64x64.png")
-    self.activeFrame = love.graphics.newQuad(64 * 2, 64 * 6, 64, 64, self.collectableSprites:getDimensions())
+    self.activeFrame = love.graphics.newQuad(64 * 2 + 1, 64 * 6 + 1, 63, 63, self.collectableSprites:getDimensions())
     self.visible = true
 
     self.type = function() 

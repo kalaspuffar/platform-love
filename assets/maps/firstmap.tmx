@@ -475,10 +475,6 @@
   <tile id="51" type="enemy">
    <objectgroup draworder="index">
     <object id="1" type="enemy" x="15" y="62.3333">
-     <properties>
-      <property name="collidable" type="bool" value="true"/>
-      <property name="type" value="enemy"/>
-     </properties>
      <polygon points="0,0 5.66667,-6 12.3333,-6 13,-14 -8,-21.3333 -9,-45.3333 3.66667,-52.3333 27.6667,-52.6667 41,-39.6667 40.3333,-21.3333 22.3333,-1"/>
     </object>
    </objectgroup>
