@@ -3,18 +3,20 @@
         {
             "speaker": "Sara",
             "image": "sara/sara-happy.png",
-            "text": "What? Who knew little cave was on the other side of the river. And yes I know it is a bit weird that my inner monolog is using this sexy bariton male voice.",
-            "voice": "intro1.mp3"
+            "text": "What?\n Who knew a little cave was on the other side of the river.",
+            "voice": "intro1-1.mp3"
         },
         {
             "speaker": "Unknown",
-            "image": "sara/sara-sup.png",
-            "text": "Wooooooooooooo!"
+            "image": "unknown.jpg",
+            "text": "Wooooooooooooo!",
+            "voice": "intro1-2.mp3"
         },
         {
             "speaker": "Sara",
-            "image": "sara/sara-happy.png",
-            "text": "What was that?, let's EXPLORE!"
+            "image": "sara/sara-sup.png",
+            "text": "What was that?\n Let's explore.",
+            "voice": "intro1-3.mp3"
         }
     ]
 }

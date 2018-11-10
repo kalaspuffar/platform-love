@@ -12,6 +12,7 @@ local windowHeight
 local windowWidth
 local map
 local world
+local backgroundSound
 
 local enemies = {}
 local hero
@@ -19,7 +20,7 @@ local mute = false
 
 local voiceLine
 local mainScript
-local currentScript = "intro1"
+local currentScript
 local currentScriptPlace = 1
 
 function printPairs(val)
@@ -45,7 +46,7 @@ function love.load()
     Moan.typeSound:setVolume(0.01)
 	Moan.optionOnSelectSound = love.audio.newSource("assets/sound/optionSelect.wav", "static")
 	Moan.optionSwitchSound = love.audio.newSource("assets/sound/optionSwitch.wav", "static")
-    local backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
+    backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
     backgroundSound:setVolume(0.3)
     if(not mute) then
@@ -100,8 +101,14 @@ function love.load()
             properties = map.objects[startPosId].properties
         }
     )
-    
-    lurker.postswap = function(f) print("File " .. f .. " was swapped") end
+
+    lurker.preswap = function(f) 
+        backgroundSound:stop()
+    end
+
+    lurker.postswap = function(f) 
+        print(f .. " was swapped")
+    end
 end
 
 local elapsedTime = 0
@@ -142,9 +149,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    if(not map) then
+    if not map then
         love.load()
-    end    
+    end
 
     love.graphics.setColor(255, 255, 255)
     map:draw(hero:getScreenX(), hero:getScreenY())
@@ -166,6 +173,10 @@ function sayNext()
         voiceLine:stop()
     end
 
+    if(not currentScript) then
+        return
+    end
+    
     if(table.getn(mainScript[currentScript]) + 1 > currentScriptPlace) then
         local introSc = mainScript[currentScript][currentScriptPlace]
 
@@ -189,6 +200,10 @@ function love.keypressed(key)
 
     if(key == "up") then
         hero:jump()
+    end
+    
+    if(key == "down") then
+        hero:stop()
     end
 
     if(key == "escape") then
