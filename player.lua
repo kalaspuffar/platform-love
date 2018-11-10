@@ -37,7 +37,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, use
 
     self.elapsedTime = 0
     self.currentFrame = 1
-    self.playerFile = love.graphics.newImage("assets/characters/sara-cal.png")
+    self.playerFile = love.graphics.newImage("assets/characters/sara/sara-cal.png")
     self.frames = {}
     self.frames[1] = love.graphics.newQuad(0, 8, 32, 48, self.playerFile:getDimensions())
     self.frames[2] = love.graphics.newQuad(0, 136, 32, 48, self.playerFile:getDimensions())

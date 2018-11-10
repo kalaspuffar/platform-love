@@ -42,10 +42,10 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
 
     self.elapsedTime = 0
     self.currentFrame = 1
-    self.enemySprites = love.graphics.newImage("assets/characters/mushenemy.png")
+    self.enemySprites = love.graphics.newImage("assets/characters/mush/running.png")
     self.frames = {}
 
-    self.enemySpritesJson = json.decode(love.filesystem.read('assets/characters/mushenemy.json'))
+    self.enemySpritesJson = json.decode(love.filesystem.read('assets/characters/mush/running.json'))
     for k, v in pairs(self.enemySpritesJson.frames) do
         self.frames[k] = love.graphics.newQuad(
             v.frame.x, v.frame.y, v.frame.w, v.frame.h, 

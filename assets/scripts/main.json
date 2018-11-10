@@ -2,18 +2,18 @@
     "intro1": [
         {
             "speaker": "Sara",
-            "image": "sara-happy.png",
+            "image": "sara/sara-happy.png",
             "text": "What? Who knew little cave was on the other side of the river. And yes I know it is a bit weird that my inner monolog is using this sexy bariton male voice.",
             "voice": "intro1.mp3"
         },
         {
             "speaker": "Unknown",
-            "image": "sara-happy.png",
+            "image": "sara/sara-sup.png",
             "text": "Wooooooooooooo!"
         },
         {
             "speaker": "Sara",
-            "image": "sara-happy.png",
+            "image": "sara/sara-happy.png",
             "text": "What was that?, let's EXPLORE!"
         }
     ]
