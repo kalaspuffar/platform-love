@@ -111,8 +111,23 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         return ({self.physics.body:getLinearVelocity()})[1];
     end
 
-    self.update = function(self, dt)
+    self.update = function(self, dt, map)
         self.elapsedTime = self.elapsedTime + dt
+
+        if(self.getX()) then
+            tx, ty = map:convertPixelToTile(self.getX() + 32, self.getY() + 32)
+            if(
+                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)+1] and
+                self.getVelocity() > 0
+            ) then
+                self.stop()
+            elseif(
+                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)-1] and
+                self.getVelocity() < 0
+            ) then
+                self.stop()
+            end
+        end
 
         local velocity = self.getVelocity()
         if(velocity < 10 and velocity > -10) then

@@ -7,6 +7,9 @@ collectable.new = function(x, y, physicsWorld)
     self.x = x + 32
     self.y = y - 32
 
+    self.collectGemSound = love.audio.newSource("assets/sound/gem.wav", "static")
+    self.collectGemSound:setVolume(0.4)
+
     self.physics = {}
     self.physics.world = physicsWorld
     self.physics.body = love.physics.newBody(
@@ -31,9 +34,10 @@ collectable.new = function(x, y, physicsWorld)
         return "collectable"
     end
 
-    self.hide = function() 
+    self.collect = function() 
+        self.collectGemSound:play()
         self.visible = false
-        self.physics.fixture:destroy()        
+        self.physics.fixture:destroy()  
     end
 
     self.draw = function(self, screenX, screenY)

@@ -2174,7 +2174,7 @@ return {
     {
       type = "objectgroup",
       id = 2,
-      name = "characters",
+      name = "objects",
       visible = true,
       opacity = 0,
       offsetx = 0,

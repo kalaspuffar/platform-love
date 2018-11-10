@@ -1,6 +1,6 @@
 player = {}
 
-player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, userData)
+player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     local self = self or {}
     self.windowHalfWidth = windowHalfWidth
     self.windowHalfHeight = windowHalfHeight
@@ -101,7 +101,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, use
         return self.screenY
     end
 
-    self.update = function(a, dt)
+    self.update = function(self, dt)
         self.elapsedTime = self.elapsedTime + dt
 
         local velocity = ({self.physics.body:getLinearVelocity()})[1];

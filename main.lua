@@ -1,33 +1,27 @@
--- This example uses the included Box2D (love.physics) plugin!!
-
 local sti = require("sti")
 local json = require("json")
-local Moan = require("Moan")
 local lurker = require("lurker")
 
 require("player")
 require("enemy")
 require("collectable")
+require("dialog")
 
 local windowHeight
 local windowWidth
 local map
 local world
 local backgroundSound
-local collectGemSound
 
 local enemies = {}
 local collectables = {}
 local hero
 local mute = false
 
+local elapsedTime = 0
 local score = 0
-local voiceLine
-local mainScript
-local currentScript
-local currentScriptPlace = 1
 
-function printPairs(val)
+function printTable(val)
     for k, v in pairs(val) do
         print(k)
         print(v)
@@ -35,24 +29,18 @@ function printPairs(val)
     print("-----------------------")
 end
 
+function reset() 
+    backgroundSound:stop()
+    collectables = {}
+    enemies = {}
+    mainDialog:clear()
+    score = 0
+end
+
 function love.load()
 	-- Grab window size
 	windowWidth  = love.graphics.getWidth()
 	windowHeight = love.graphics.getHeight()
-
-    -- The FontStruction “Pixel UniCode” (https://fontstruct.com/fontstructions/show/908795)
-	-- by “ivancr72” is licensed under a Creative Commons Attribution license
-	-- (http://creativecommons.org/licenses/by/3.0/)
-    Moan.font = love.graphics.newFont("assets/fonts/Pixel.ttf", 32)
-
-	-- Audio from bfxr (https://www.bfxr.net/)
-    Moan.typeSound = love.audio.newSource("assets/sound/typeSound.wav", "static")
-    Moan.typeSound:setVolume(0.01)
-	Moan.optionOnSelectSound = love.audio.newSource("assets/sound/optionSelect.wav", "static")
-	Moan.optionSwitchSound = love.audio.newSource("assets/sound/optionSwitch.wav", "static")
-
-    collectGemSound = love.audio.newSource("assets/sound/gem.wav", "static")
-    collectGemSound:setVolume(0.4)
 
     backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
@@ -63,10 +51,10 @@ function love.load()
 
     math.randomseed(os.time())
 
-    mainScript = json.decode(love.filesystem.read('assets/scripts/main.json'))
-
 	-- Set world meter size (in pixels)
 	love.physics.setMeter(64)
+
+    mainDialog = dialog.new()
 
     -- Load a map exported to Lua from Tiled
 	map = sti("assets/maps/firstmap.lua", { "box2d" })
@@ -96,8 +84,7 @@ function love.load()
                 v.x,
                 v.y,
                 world
-            ))
-            
+            ))            
         end
     end
 
@@ -106,16 +93,11 @@ function love.load()
         map.objects[startPosId].y,
         world,
         windowWidth / 2,
-        windowHeight / 2,
-        {
-            name = map.objects[startPosId].name,
-            type = map.objects[startPosId].type,
-            properties = map.objects[startPosId].properties
-        }
+        windowHeight / 2
     )
 
     lurker.preswap = function(f)
-        backgroundSound:stop()
+        reset()
     end
 
     lurker.postswap = function(f) 
@@ -126,7 +108,6 @@ function love.load()
     end
 end
 
-local elapsedTime = 0
 function love.update(dt)
     lurker.update()
 
@@ -140,27 +121,11 @@ function love.update(dt)
     world:update(dt)
     map:update(dt)
     hero:update(dt)
-
     for k,v in pairs(enemies) do
-        v:update(dt)
-        
-        if(v:getX()) then
-            tx, ty = map:convertPixelToTile(v:getX() + 32, v:getY() + 32)
-            if(
-                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)+1] and
-                v:getVelocity() > 0
-            ) then
-                v:stop()
-            elseif(
-                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)-1] and
-                v:getVelocity() < 0
-            ) then
-                v:stop()
-            end
-        end
+        v:update(dt, map)
     end
 
-    Moan.update(dt)
+    mainDialog:update(dt)
 end
 
 function love.draw()
@@ -179,7 +144,8 @@ function love.draw()
         v:draw(hero:getScreenX(), hero:getScreenY())
     end
 
-    Moan.draw()
+    mainDialog:draw()
+    
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
@@ -187,39 +153,13 @@ function love.draw()
     love.graphics.print("Score: " .. score, 20, 20, 0, 2, 2)
 end
 
-function sayNext()
-    Moan.clearMessages()
-    if(voiceLine) then
-        voiceLine:stop()
-    end
-
-    if(not currentScript or not mainScript[currentScript]) then
-        return
-    end
-    
-    if(table.getn(mainScript[currentScript]) + 1 > currentScriptPlace) then
-        local introSc = mainScript[currentScript][currentScriptPlace]
-
-        avatar = love.graphics.newImage("assets/characters/" .. introSc.image)
-        Moan.speak(introSc.speaker, {introSc.text}, {image=avatar})
-
-        if(introSc.voice) then
-            voiceLine = love.audio.newSource("assets/voice/" .. introSc.voice, "stream")
-            voiceLine:setVolume(0.5)
-            voiceLine:play()
-        end
-
-        currentScriptPlace = currentScriptPlace + 1
-    end
-end
-
 function love.keypressed(key)
     if(key == "r") then        
-        backgroundSound:stop()
+        reset()
         love:load()
     end
     if(key == "space") then
-        sayNext()
+        mainDialog:sayNext()
     end
 
     if(key == "up") then
@@ -238,52 +178,25 @@ end
 function beginContact(a, b, coll)
     if(a:isSensor() and a:getUserData().properties) then
         if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
+            mainDialog:startScript(a:getUserData().properties.script)
             a:destroy()
-            currentScript = a:getUserData().properties.script
-            currentScriptPlace = 1
-            sayNext()
         end
     end    
-            
+
     if(a:isSensor() and a:getUserData().type) then
         if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
-            a:getUserData():hide()
+            a:getUserData():collect()
+            a:destroy()
             score = score + 20
-            collectGemSound:play()
         end
     end
 end
 
 function endContact(a, b, coll)
---    print('LOST')
---    persisting = 0    -- reset since they're no longer touching
---    if(a and b) then
---        print("\n"..a:getUserData().." uncolliding with "..b:getUserData())
---    end
 end
 
 function preSolve(a, b, coll)
---    if(b:getUserData().type == 'enemy') then
---        nx, ny = coll:getNormal()
---
---        if(nx > 0) then
---            enemies[1].moveRight()
---        elseif(nx < 0) then
---            enemies[1].moveLeft()
---        end
---        print(nx .. "x" .. ny)
---        print('SOLVED ' .. b:getUserData().type)
---    end
-
---    if persisting == 0 then    -- only say when they first start touching
---        print(a:getUserData().." touching "..b:getUserData())
---    elseif persisting < 20 then    -- then just start counting
---        print(persisting)
---    end
---    persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
---    print('AFTER')
--- we won't do anything with this function
 end
