@@ -1,3 +1,5 @@
+local json = require("json")
+
 enemy = {}
 
 enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, userData)
@@ -10,6 +12,9 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
     self.playerX = 0
     self.playerY = 0
     self.scale = 0
+    self.enemySize = 0.5
+    self.enemyOffsetX = 28
+    self.enemyOffsetY = 56
     self.goingRight = false
 
     self.physics = {}
@@ -37,24 +42,28 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
 
     self.elapsedTime = 0
     self.currentFrame = 1
-    self.playerFile = love.graphics.newImage("assets/characters/sara-cal.png")
+    self.enemySprites = love.graphics.newImage("assets/characters/mushenemy.png")
     self.frames = {}
-    self.frames[1] = love.graphics.newQuad(0, 8, 32, 48, self.playerFile:getDimensions())
-    self.frames[2] = love.graphics.newQuad(0, 136, 32, 48, self.playerFile:getDimensions())
-    self.frames[3] = love.graphics.newQuad(0, 72, 32, 48, self.playerFile:getDimensions())
-    self.frames[4] = love.graphics.newQuad(36, 72, 32, 48, self.playerFile:getDimensions())
-    self.frames[5] = love.graphics.newQuad(72, 72, 32, 48, self.playerFile:getDimensions())
+
+    self.enemySpritesJson = json.decode(love.filesystem.read('assets/characters/mushenemy.json'))
+    for k, v in pairs(self.enemySpritesJson.frames) do
+        self.frames[k] = love.graphics.newQuad(
+            v.frame.x, v.frame.y, v.frame.w, v.frame.h, 
+            self.enemySprites:getDimensions()
+        )
+    end
+
     self.activeFrame = self.frames[self.currentFrame]
 
     self.draw = function(self, screenX, screenY)
         love.graphics.draw(
-            self.playerFile,
+            self.enemySprites,
             self.activeFrame,
             self.playerX + screenX,
             self.playerY + screenY,
             0,
             self.scale,
-            2
+            self.enemySize
         )
     end
 
@@ -107,30 +116,25 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
         if(not self.walkSound:isPlaying()) then
             self.walkSound:play()
         end
-        if(self.currentFrame == 3 and self.elapsedTime > 0.2) then
-            self.currentFrame = 4
+        if(self.elapsedTime > 0.01) then            
+            self.currentFrame = self.currentFrame + 1
+            if(self.currentFrame > table.getn(self.frames)) then
+                self.currentFrame = 1
+            end
             self.elapsedTime = 0
-        elseif(self.currentFrame == 4 and self.elapsedTime > 0.2) then
-            self.currentFrame = 5
-            self.elapsedTime = 0
-        elseif(self.currentFrame == 5 and self.elapsedTime > 0.2) then
-            self.currentFrame = 3
-            self.elapsedTime = 0
-        elseif(self.currentFrame < 3) then
-            self.currentFrame = 3
         end
 
         self.activeFrame = self.frames[self.currentFrame]
 
-        self.scale = 2
-        local offset = -32
+        self.scale = -self.enemySize
+        local offset = self.enemyOffsetX
         if(velocity > 0) then
-            offset = 32
-            self.scale = -2
+            offset = -self.enemyOffsetX
+            self.scale = self.enemySize
         end
 
         self.playerX = self.physics.body:getX() + offset
-        self.playerY = self.physics.body:getY() - 64
+        self.playerY = self.physics.body:getY() - self.enemyOffsetY
     end
 
     return self

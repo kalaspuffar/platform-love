@@ -114,10 +114,8 @@ function love.update(dt)
             tx, ty = map:convertPixelToTile(v:getX() + 32, v:getY() + 32)
             print(math.floor(ty+0.5)+2 .. "x" .. math.floor(tx+0.5)-1)
             if(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)+1]) then
-                print("left")
                 v:moveLeft()
             elseif(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)-1]) then
-                print("right")
                 v:moveRight()
             end
         end
@@ -185,21 +183,6 @@ function beginContact(a, b, coll)
             sayNext()
         end
     end
-
---    for k,v in pairs(a:getUserData()) do
---        print(k)
---        print(v)
---    end
---    if(b:getUserData()) then
---        for k,v in pairs(b:getUserData()) do
---            print(k)
---            print(v)
---        end
---    end
---    x,y = coll:getNormal()
---    if(a and b and x and y) then
---        print(a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y)
---    end
 end
 
 
