@@ -75,9 +75,13 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
         return self.playerY
     end
 
+    self.stop = function()
+        self.physics.body:setLinearVelocity(0, 0)
+    end
+
     self.moveLeft = function()
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
-        if(velocity > 0) then
+        if(velocity > -10) then
             self.physics.body:applyLinearImpulse(-200, 0)
         end
         self.goingRight = true
@@ -85,7 +89,7 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
 
     self.moveRight = function()
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
-        if(velocity < 0) then
+        if(velocity < 10) then
             self.physics.body:applyLinearImpulse(200, 0)
         end
         self.goingRight = false
@@ -100,11 +104,14 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
         end
     end
 
+    self.getVelocity = function() 
+        return ({self.physics.body:getLinearVelocity()})[1];
+    end
+
     self.update = function(self, dt)
         self.elapsedTime = self.elapsedTime + dt
 
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
-
+        local velocity = self.getVelocity()
         if(velocity < 10 and velocity > -10) then
             if(self.goingRight) then
                 self.moveRight()
@@ -113,8 +120,8 @@ enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight, user
             end
         end
 
-        if(not self.walkSound:isPlaying()) then
-            self.walkSound:play()
+        if(self.walkSound:isPlaying()) then
+            self.walkSound:stop()            
         end
         if(self.elapsedTime > 0.01) then            
             self.currentFrame = self.currentFrame + 1

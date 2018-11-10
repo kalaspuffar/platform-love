@@ -3,6 +3,7 @@
 local sti = require("sti")
 local json = require("json")
 local Moan = require("Moan")
+local lurker = require("lurker")
 
 require("player")
 require("enemy")
@@ -20,6 +21,14 @@ local voiceLine
 local mainScript
 local currentScript = "intro1"
 local currentScriptPlace = 1
+
+function printPairs(val)
+    for k, v in pairs(val) do
+        print(k)
+        print(v)
+    end
+    print("-----------------------")
+end
 
 function love.load()
 	-- Grab window size
@@ -91,10 +100,14 @@ function love.load()
             properties = map.objects[startPosId].properties
         }
     )
+    
+    lurker.postswap = function(f) print("File " .. f .. " was swapped") end
 end
 
 local elapsedTime = 0
 function love.update(dt)
+    lurker.update()
+
     if(love.keyboard.isDown("left")) then
         hero:moveLeft()
     end
@@ -106,17 +119,21 @@ function love.update(dt)
     map:update(dt)
     hero:update(dt)
 
-
     for k,v in pairs(enemies) do
         v:update(dt)
-
+        
         if(v:getX()) then
             tx, ty = map:convertPixelToTile(v:getX() + 32, v:getY() + 32)
-            print(math.floor(ty+0.5)+2 .. "x" .. math.floor(tx+0.5)-1)
-            if(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)+1]) then
-                v:moveLeft()
-            elseif(not map.layers.mainmap.data[math.floor(ty+0.5)+1][math.floor(tx+0.5)-1]) then
-                v:moveRight()
+            if(
+                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)+1] and
+                v:getVelocity() > 0
+            ) then
+                v:stop()
+            elseif(
+                not map.layers.mainmap.data[math.floor(ty+0.5)+2][math.floor(tx+0.5)-1] and
+                v:getVelocity() < 0
+            ) then
+                v:stop()
             end
         end
     end
@@ -125,8 +142,12 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.setColor(255, 255, 255)
-	map:draw(hero:getScreenX(), hero:getScreenY())
+    if(not map) then
+        love.load()
+    end    
+
+    love.graphics.setColor(255, 255, 255)
+    map:draw(hero:getScreenX(), hero:getScreenY())
     hero:draw()
 
     for k,v in pairs(enemies) do
