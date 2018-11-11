@@ -1,5 +1,5 @@
-local json = require("json")
-local Moan = require("Moan")
+local json = require("lib/json")
+local Moan = require("lib/Moan")
 
 dialog = {}
 

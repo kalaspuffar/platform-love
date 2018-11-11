@@ -1,11 +1,11 @@
-local sti = require("sti")
-local json = require("json")
-local lurker = require("lurker")
+local sti = require("lib/sti")
+local json = require("lib/json")
+local lurker = require("lib/lurker")
 
-require("player")
-require("enemy")
-require("collectable")
-require("dialog")
+require("classes/player")
+require("classes/enemy")
+require("classes/collectable")
+require("classes/dialog")
 
 local windowHeight
 local windowWidth
