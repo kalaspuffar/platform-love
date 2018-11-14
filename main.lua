@@ -6,6 +6,7 @@ require("classes/player")
 require("classes/enemy")
 require("classes/collectable")
 require("classes/dialog")
+require("classes/barrel")
 
 local windowHeight
 local windowWidth
@@ -15,6 +16,7 @@ local backgroundSound
 
 local enemies = {}
 local collectables = {}
+local spawnPoints = {}
 local hero
 local mute = false
 
@@ -70,22 +72,25 @@ function love.load()
         end
 
         if(v.type == "enemy") then
-            table.insert(enemies, enemy.new(
-                v.x,
-                v.y,
-                world,
-                windowWidth / 2,
-                windowHeight / 2
-            ))
+            table.insert(enemies, enemy.new(v.x, v.y, world))
         end   
 
         if(v.type == "collectable") then
-            table.insert(collectables, collectable.new(
-                v.x,
-                v.y,
-                world
-            ))            
+            table.insert(collectables, collectable.new(v.x, v.y, world))            
         end
+
+        if(v.type == "spawn") then
+            table.insert(spawnPoints, {
+                x = v.x, 
+                y = v.y,
+                spawn = true,
+                type = v.properties.type
+            })
+        end
+    end
+
+    for k,v in pairs(spawnPoints) do 
+        table.insert(enemies, barrel.new(v.x, v.y, world))
     end
 
     hero = player.new(

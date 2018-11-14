@@ -2,10 +2,8 @@ local json = require("lib/json")
 
 enemy = {}
 
-enemy.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
+enemy.new = function(x, y, physicsWorld)
     local self = {}
-    self.windowHalfWidth = windowHalfWidth
-    self.windowHalfHeight = windowHalfHeight
     self.x = x
     self.y = y
 
