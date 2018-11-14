@@ -89,10 +89,6 @@ function love.load()
         end
     end
 
-    for k,v in pairs(spawnPoints) do 
-        table.insert(enemies, barrel.new(v.x, v.y, world))
-    end
-
     hero = player.new(
         map.objects[startPosId].x,
         map.objects[startPosId].y,
@@ -114,6 +110,8 @@ function love.load()
 end
 
 function love.update(dt)
+    elapsedTime = elapsedTime + dt
+
     lurker.update()
 
     if(love.keyboard.isDown("left")) then
@@ -126,10 +124,26 @@ function love.update(dt)
     world:update(dt)
     map:update(dt)
     hero:update(dt)
+
+    local destroyKeys = {}
     for k,v in pairs(enemies) do
+        if(v.destroyed()) then
+            destroyKeys[k] = true
+        end
         v:update(dt, map)
     end
+ 
+    if(elapsedTime > 10) then
+        for k,v in pairs(destroyKeys) do
+            table.remove(enemies, k)
+        end
+    
+        for k,v in pairs(spawnPoints) do 
+            table.insert(enemies, barrel.new(v.x, v.y, world))
+        end
 
+        elapsedTime = 0
+    end
     mainDialog:update(dt)
 end
 
@@ -185,6 +199,10 @@ function beginContact(a, b, coll)
         if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
             mainDialog:startScript(a:getUserData().properties.script)
             a:destroy()
+        end
+
+        if(a:getUserData().properties.type == 'despawn' and b:getUserData():type() == 'spawnable') then
+            b:getUserData():destroy()
         end
     end    
 

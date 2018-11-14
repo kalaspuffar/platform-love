@@ -80,6 +80,10 @@ enemy.new = function(x, y, physicsWorld)
         self.physics.body:setLinearVelocity(0, 0)
     end
 
+    self.destroyed = function()
+        return false
+    end
+
     self.moveLeft = function()
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
         if(velocity > -10) then

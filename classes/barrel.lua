@@ -12,7 +12,7 @@ barrel.new = function(x, y, physicsWorld)
     self.enemySize = 1
     self.enemyOffsetX = 32
     self.enemyOffsetY = 32
-    self.goingRight = false
+    self.visible = true
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -42,9 +42,21 @@ barrel.new = function(x, y, physicsWorld)
         )
     end
 
+    self.destroy = function() 
+        self.visible = false
+        self.physics.fixture:destroy()  
+    end
+
+    self.destroyed = function()
+        return not self.visible
+    end
+
     self.activeFrame = self.frames[self.currentFrame]
 
     self.draw = function(self, screenX, screenY)
+        if not self.visible then
+            return
+        end        
         love.graphics.draw(
             self.enemySprites,
             self.activeFrame,
