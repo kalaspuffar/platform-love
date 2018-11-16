@@ -2,10 +2,11 @@ local json = require("lib/json")
 
 collectable = {}
 
-collectable.new = function(x, y, physicsWorld)
+collectable.new = function(x, y, physicsWorld, valueType)
     local self = {}
     self.x = x + 32
     self.y = y - 32
+    self.valueType = valueType
 
     self.collectGemSound = love.audio.newSource("assets/sound/gem.wav", "static")
     self.collectGemSound:setVolume(0.4)
@@ -28,10 +29,24 @@ collectable.new = function(x, y, physicsWorld)
 
     self.collectableSprites = love.graphics.newImage("assets/maps/Tiles_64x64.png")
     self.activeFrame = love.graphics.newQuad(64 * 2 + 1, 64 * 6 + 1, 63, 63, self.collectableSprites:getDimensions())
-    self.visible = true
+    self.visible = not (self.valueType == "hidden_gem")
 
     self.type = function() 
         return "collectable"
+    end    
+
+    self.showHidden = function()
+        if(not (self.valueType == "hidden_gem")) then
+            return
+        end
+        self.visible = true
+    end
+
+    self.hideHidden = function()
+        if(not (self.valueType == "hidden_gem")) then
+            return
+        end
+        self.visible = false
     end
 
     self.collect = function() 

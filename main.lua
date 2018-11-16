@@ -35,6 +35,7 @@ function reset()
     backgroundSound:stop()
     collectables = {}
     enemies = {}
+    spawnPoints = {}
     mainDialog:clear()
     score = 0
 end
@@ -76,7 +77,7 @@ function love.load()
         end   
 
         if(v.type == "collectable") then
-            table.insert(collectables, collectable.new(v.x, v.y, world))            
+            table.insert(collectables, collectable.new(v.x, v.y, world, v.properties.value))            
         end
 
         if(v.type == "spawn") then
@@ -103,9 +104,9 @@ function love.load()
 
     lurker.postswap = function(f) 
         print(f .. " was swapped")
-        if(f == 'assets/maps/firstmap.lua') then
+        --if(f == 'assets/maps/firstmap.lua') then
             love:load()
-        end
+        --end
     end
 end
 
@@ -195,27 +196,43 @@ function love.keypressed(key)
 end
 
 function beginContact(a, b, coll)
-    if(a:isSensor() and a:getUserData().properties) then
+    if(a:isSensor() and a:getUserData().properties) then    
         if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
             mainDialog:startScript(a:getUserData().properties.script)
             a:destroy()
         end
-
         if(a:getUserData().properties.type == 'despawn' and b:getUserData():type() == 'spawnable') then
             b:getUserData():destroy()
         end
-    end    
-
-    if(a:isSensor() and a:getUserData().type) then
+        if(a:getUserData().properties.type == 'reveal' and b:getUserData():type() == 'player') then
+            map.layers.hidden.opacity = 0
+            for k,v in pairs(collectables) do
+                v:showHidden()
+            end            
+        end
+    elseif(a:isSensor() and a:getUserData().type) then
         if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
             a:getUserData():collect()
             a:destroy()
             score = score + 20
         end
+    elseif(not a:isSensor() and b:getUserData().type() == 'player') then
+        nx, ny = coll:getNormal()
+        if(ny < 0) then
+            b:getUserData():landed()
+        end
     end
 end
 
 function endContact(a, b, coll)
+    if(a:isSensor() and a:getUserData().properties) then
+        if(a:getUserData().properties.type == 'reveal' and b:getUserData():type() == 'player') then
+            map.layers.hidden.opacity = 1
+            for k,v in pairs(collectables) do
+                v:hideHidden()
+            end            
+        end
+    end
 end
 
 function preSolve(a, b, coll)

@@ -12,6 +12,8 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.playerX = 0
     self.playerY = 0
     self.scale = 0
+    self.jumps = 0
+    self.maxJumps = 1
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -84,10 +86,13 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         end
     end
 
-    self.jump = function()
-        local velocity = ({self.physics.body:getLinearVelocity()})[2];
+    self.landed = function() 
+        self.jumps = 0
+    end
 
-        if(velocity < 2 and velocity > -2) then
+    self.jump = function()
+        if(self.jumps < self.maxJumps) then
+            self.jumps = self.jumps + 1
             self.jumpSound:play()
             self.physics.body:applyLinearImpulse(0, -400)
         end
