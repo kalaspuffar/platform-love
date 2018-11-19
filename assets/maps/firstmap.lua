@@ -1906,6 +1906,7 @@ return {
         },
         {
           id = 50,
+          type = "collectable",
           properties = {
             ["value"] = "gem"
           },
@@ -1939,6 +1940,7 @@ return {
         },
         {
           id = 51,
+          type = "enemy",
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -2679,6 +2681,7 @@ return {
       tiles = {
         {
           id = 50,
+          type = "collectable",
           properties = {
             ["value"] = "hidden_gem"
           },
@@ -2966,8 +2969,8 @@ return {
           name = "StartPos",
           type = "player",
           shape = "rectangle",
-          x = 5952,
-          y = 2624,
+          x = 3540,
+          y = 2628,
           width = 67,
           height = 64,
           rotation = 0,
@@ -3013,7 +3016,7 @@ return {
         {
           id = 101,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 256,
           y = 448,
@@ -3022,14 +3025,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 102,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 64,
           y = 704,
@@ -3038,14 +3039,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 103,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1344,
           y = 1152,
@@ -3054,14 +3053,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 104,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1344,
           y = 1216,
@@ -3070,14 +3067,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 105,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1408,
           y = 1152,
@@ -3086,14 +3081,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 106,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1408,
           y = 1216,
@@ -3102,14 +3095,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 107,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1472,
           y = 1152,
@@ -3118,14 +3109,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 109,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 1152,
@@ -3134,14 +3123,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 110,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1536,
           y = 1152,
@@ -3150,14 +3137,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 111,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1472,
           y = 1216,
@@ -3166,14 +3151,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 112,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1536,
           y = 1216,
@@ -3182,14 +3165,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 113,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 1216,
@@ -3198,14 +3179,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 114,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 960,
@@ -3219,7 +3198,7 @@ return {
         {
           id = 117,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = -256,
           y = 1728,
@@ -3228,14 +3207,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 118,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 2112,
@@ -3249,7 +3226,7 @@ return {
         {
           id = 119,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 704,
           y = 2112,
@@ -3327,7 +3304,7 @@ return {
         {
           id = 128,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 3584,
           y = 2432,
@@ -3341,7 +3318,7 @@ return {
         {
           id = 130,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 3520,
           y = 1920,
@@ -3355,7 +3332,7 @@ return {
         {
           id = 132,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 4160,
           y = 1344,
@@ -3369,7 +3346,7 @@ return {
         {
           id = 133,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 3968,
           y = 512,
@@ -3383,7 +3360,7 @@ return {
         {
           id = 152,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5248,
           y = 768,
@@ -3392,14 +3369,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 153,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5248,
           y = 704,
@@ -3408,14 +3383,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 154,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5248,
           y = 640,
@@ -3424,14 +3397,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 155,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5312,
           y = 640,
@@ -3440,14 +3411,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 156,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5312,
           y = 704,
@@ -3456,14 +3425,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 157,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5376,
           y = 768,
@@ -3472,14 +3439,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 158,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5312,
           y = 768,
@@ -3488,14 +3453,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 159,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5376,
           y = 704,
@@ -3504,14 +3467,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 160,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5376,
           y = 640,
@@ -3520,14 +3481,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 161,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5440,
           y = 640,
@@ -3536,14 +3495,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 162,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5440,
           y = 704,
@@ -3552,14 +3509,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 163,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5440,
           y = 768,
@@ -3568,14 +3523,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 164,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5504,
           y = 768,
@@ -3584,14 +3537,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 165,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5504,
           y = 704,
@@ -3600,14 +3551,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 166,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5504,
           y = 640,
@@ -3616,14 +3565,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 167,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5568,
           y = 640,
@@ -3632,14 +3579,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 168,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5568,
           y = 704,
@@ -3648,14 +3593,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 169,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5568,
           y = 768,
@@ -3664,14 +3607,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 170,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5632,
           y = 768,
@@ -3680,14 +3621,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 171,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5632,
           y = 704,
@@ -3696,14 +3635,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 172,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5632,
           y = 640,
@@ -3712,14 +3649,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 173,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 1728,
@@ -3728,14 +3663,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 174,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2944,
           y = 1728,
@@ -3744,14 +3677,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 175,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2944,
           y = 1664,
@@ -3760,14 +3691,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 176,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 1664,
@@ -3776,14 +3705,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 177,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 1600,
@@ -3792,14 +3719,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 178,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2944,
           y = 1600,
@@ -3808,14 +3733,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 179,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2944,
           y = 2129,
@@ -3824,14 +3747,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 180,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2944,
           y = 2048,
@@ -3840,14 +3761,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 181,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 2048,
@@ -3856,14 +3775,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 182,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4928,
           y = 1856,
@@ -3872,14 +3789,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 183,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4928,
           y = 1792,
@@ -3888,14 +3803,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 184,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4800,
           y = 1792,
@@ -3904,14 +3817,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 185,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3776,
           y = 1216,
@@ -3920,14 +3831,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 186,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3776,
           y = 1280,
@@ -3936,14 +3845,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 187,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3776,
           y = 1344,
@@ -3952,14 +3859,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 188,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3840,
           y = 1280,
@@ -3968,14 +3873,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 189,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3904,
           y = 1216,
@@ -3984,14 +3887,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 190,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3904,
           y = 1280,
@@ -4000,14 +3901,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 191,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3904,
           y = 1344,
@@ -4016,14 +3915,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 192,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4032,
           y = 1344,
@@ -4032,14 +3929,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 193,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4032,
           y = 1280,
@@ -4048,14 +3943,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 194,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4032,
           y = 1216,
@@ -4064,14 +3957,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 195,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4096,
           y = 1216,
@@ -4080,14 +3971,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 196,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4096,
           y = 1280,
@@ -4096,14 +3985,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 197,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4096,
           y = 1344,
@@ -4112,14 +3999,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 198,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3840,
           y = 512,
@@ -4128,14 +4013,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 199,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4160,
           y = 512,
@@ -4144,14 +4027,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 200,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3392,
           y = 768,
@@ -4160,14 +4041,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 201,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3200,
           y = 768,
@@ -4176,14 +4055,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 202,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4416,
           y = 768,
@@ -4192,14 +4069,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 203,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4608,
           y = 768,
@@ -4208,14 +4083,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 204,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4224,
           y = 1024,
@@ -4224,14 +4097,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 205,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 4352,
           y = 1024,
@@ -4240,14 +4111,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 206,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3136,
           y = 512,
@@ -4256,14 +4125,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 207,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3072,
           y = 512,
@@ -4272,14 +4139,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 208,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 512,
@@ -4288,14 +4153,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 209,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3008,
           y = 448,
@@ -4304,14 +4167,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 210,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3072,
           y = 448,
@@ -4320,14 +4181,12 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 211,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 3136,
           y = 448,
@@ -4336,9 +4195,7 @@ return {
           rotation = 0,
           gid = 51,
           visible = true,
-          properties = {
-            ["value"] = "gem"
-          }
+          properties = {}
         },
         {
           id = 234,
@@ -4377,7 +4234,7 @@ return {
         {
           id = 240,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 3904,
           y = 3648,
@@ -4391,7 +4248,7 @@ return {
         {
           id = 241,
           name = "",
-          type = "enemy",
+          type = "",
           shape = "rectangle",
           x = 4352,
           y = 3200,
@@ -4405,7 +4262,7 @@ return {
         {
           id = 286,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2112,
           y = 640,
@@ -4414,14 +4271,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 287,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2112,
           y = 576,
@@ -4430,14 +4285,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 288,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2048,
           y = 576,
@@ -4446,14 +4299,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 289,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2048,
           y = 640,
@@ -4462,14 +4313,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 290,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2112,
           y = 512,
@@ -4478,14 +4327,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 291,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 2048,
           y = 512,
@@ -4494,14 +4341,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 292,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1984,
           y = 640,
@@ -4510,14 +4355,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 293,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1984,
           y = 576,
@@ -4526,14 +4369,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 294,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1984,
           y = 512,
@@ -4542,14 +4383,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 295,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 512,
@@ -4558,14 +4397,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 296,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 576,
@@ -4574,14 +4411,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 297,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 640,
@@ -4590,14 +4425,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 298,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1856,
           y = 640,
@@ -4606,14 +4439,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 299,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1856,
           y = 576,
@@ -4622,14 +4453,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 300,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1856,
           y = 512,
@@ -4638,14 +4467,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 301,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1792,
           y = 512,
@@ -4654,14 +4481,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 302,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1792,
           y = 640,
@@ -4670,14 +4495,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 303,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 1792,
           y = 576,
@@ -4686,14 +4509,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 304,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5824,
           y = 2432,
@@ -4702,14 +4523,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 305,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5824,
           y = 2368,
@@ -4718,14 +4537,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 306,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5824,
           y = 2304,
@@ -4734,14 +4551,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 307,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5888,
           y = 2240,
@@ -4750,14 +4565,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 308,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5888,
           y = 2304,
@@ -4766,14 +4579,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 309,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5888,
           y = 2368,
@@ -4782,14 +4593,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 310,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5888,
           y = 2432,
@@ -4798,14 +4607,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 311,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5952,
           y = 2432,
@@ -4814,14 +4621,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 312,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5952,
           y = 2368,
@@ -4830,14 +4635,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 313,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5952,
           y = 2304,
@@ -4846,14 +4649,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 314,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 5952,
           y = 2240,
@@ -4862,14 +4663,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 315,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6016,
           y = 2240,
@@ -4878,14 +4677,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 316,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6016,
           y = 2304,
@@ -4894,14 +4691,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 317,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6016,
           y = 2368,
@@ -4910,14 +4705,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 318,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6016,
           y = 2432,
@@ -4926,14 +4719,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 319,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6080,
           y = 2432,
@@ -4942,14 +4733,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 320,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6080,
           y = 2368,
@@ -4958,14 +4747,12 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         },
         {
           id = 321,
           name = "",
-          type = "collectable",
+          type = "",
           shape = "rectangle",
           x = 6080,
           y = 2304,
@@ -4974,9 +4761,7 @@ return {
           rotation = 0,
           gid = 115,
           visible = true,
-          properties = {
-            ["value"] = "hidden_gem"
-          }
+          properties = {}
         }
       }
     }

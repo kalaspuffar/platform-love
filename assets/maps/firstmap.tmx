@@ -1021,7 +1021,7 @@
   <properties>
    <property name="type" value="reveal"/>
   </properties>
-  <object id="20" name="StartPos" type="player" x="5952" y="2624" width="67" height="64"/>
+  <object id="20" name="StartPos" type="player" x="3540" y="2628" width="67" height="64"/>
   <object id="31" name="intro1" type="dialog" x="269" y="962" width="115" height="189">
    <properties>
     <property name="collidable" type="bool" value="true"/>

@@ -14,6 +14,11 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.scale = 0
     self.jumps = 0
     self.maxJumps = 1
+    self.maxSprint = 3
+    self.sprintTime = self.maxSprint
+    self.maxHealth = 10
+    self.health = self.maxHealth
+    self.maxVelocity = 100
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -30,6 +35,9 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     )
     self.physics.fixture:setFriction(1.0)
     self.physics.fixture:setUserData(self)
+    self.physics.body:setFixedRotation(true)
+    self.physics.body:setLinearDamping(0.1)
+
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
     self.walkSound:setVolume(0.05)
@@ -72,7 +80,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
 
         self.goingRight = false
 
-        if(velocity > -100) then
+        if(velocity > -self.maxVelocity) then
             self.physics.body:applyLinearImpulse(-10, 0)
         end
     end
@@ -81,13 +89,32 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         local velocity = ({self.physics.body:getLinearVelocity()})[1];
 
         self.goingRight = true
-        if(velocity < 100) then
+        if(velocity < self.maxVelocity) then
             self.physics.body:applyLinearImpulse(10, 0)
         end
     end
 
-    self.landed = function() 
+    self.landed = function()
         self.jumps = 0
+    end
+
+    self.hurt = function(self, coll)
+        self.health = self.health - 1
+    end
+
+    self.sprint = function(self, dt, sprinting)
+        if(sprinting) then
+            if(self.sprintTime > 0) then
+                self.maxVelocity = 200
+            else
+                self.maxVelocity = 100
+            end
+            self.sprintTime = self.sprintTime - dt
+        else
+            if(self.sprintTime < self.maxSprint) then
+                self.sprintTime = self.sprintTime + dt
+            end
+        end
     end
 
     self.jump = function()

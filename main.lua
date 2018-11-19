@@ -31,7 +31,7 @@ function printTable(val)
     print("-----------------------")
 end
 
-function reset() 
+function reset()
     backgroundSound:stop()
     collectables = {}
     enemies = {}
@@ -74,15 +74,15 @@ function love.load()
 
         if(v.type == "enemy") then
             table.insert(enemies, enemy.new(v.x, v.y, world))
-        end   
+        end
 
         if(v.type == "collectable") then
-            table.insert(collectables, collectable.new(v.x, v.y, world, v.properties.value))            
+            table.insert(collectables, collectable.new(v.x, v.y, world, v.properties.value))
         end
 
         if(v.type == "spawn") then
             table.insert(spawnPoints, {
-                x = v.x, 
+                x = v.x,
                 y = v.y,
                 spawn = true,
                 type = v.properties.type
@@ -102,7 +102,7 @@ function love.load()
         reset()
     end
 
-    lurker.postswap = function(f) 
+    lurker.postswap = function(f)
         print(f .. " was swapped")
         --if(f == 'assets/maps/firstmap.lua') then
             love:load()
@@ -121,7 +121,9 @@ function love.update(dt)
     if(love.keyboard.isDown("right")) then
         hero:moveRight()
     end
- 
+
+    hero:sprint(dt, love.keyboard.isDown("lshift"))
+
     world:update(dt)
     map:update(dt)
     hero:update(dt)
@@ -133,13 +135,13 @@ function love.update(dt)
         end
         v:update(dt, map)
     end
- 
+
     if(elapsedTime > 10) then
         for k,v in pairs(destroyKeys) do
             table.remove(enemies, k)
         end
-    
-        for k,v in pairs(spawnPoints) do 
+
+        for k,v in pairs(spawnPoints) do
             table.insert(enemies, barrel.new(v.x, v.y, world))
         end
 
@@ -165,7 +167,7 @@ function love.draw()
     end
 
     mainDialog:draw()
-    
+
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
@@ -174,7 +176,7 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    if(key == "r") then        
+    if(key == "r") then
         reset()
         love:load()
     end
@@ -185,7 +187,7 @@ function love.keypressed(key)
     if(key == "up") then
         hero:jump()
     end
-    
+
     if(key == "down") then
         hero:stop()
     end
@@ -196,7 +198,7 @@ function love.keypressed(key)
 end
 
 function beginContact(a, b, coll)
-    if(a:isSensor() and a:getUserData().properties) then    
+    if(a:isSensor() and a:getUserData().properties) then
         if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
             mainDialog:startScript(a:getUserData().properties.script)
             a:destroy()
@@ -208,7 +210,7 @@ function beginContact(a, b, coll)
             map.layers.hidden.opacity = 0
             for k,v in pairs(collectables) do
                 v:showHidden()
-            end            
+            end
         end
     elseif(a:isSensor() and a:getUserData().type) then
         if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
@@ -230,7 +232,7 @@ function endContact(a, b, coll)
             map.layers.hidden.opacity = 1
             for k,v in pairs(collectables) do
                 v:hideHidden()
-            end            
+            end
         end
     end
 end
