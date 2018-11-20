@@ -19,7 +19,7 @@ local enemies = {}
 local collectables = {}
 local spawnPoints = {}
 local hero
-local mute = true
+local mute = false
 
 local elapsedTime = 0
 local score = 0
