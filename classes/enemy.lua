@@ -7,8 +7,8 @@ enemy.new = function(x, y, physicsWorld)
     self.x = x
     self.y = y
 
-    self.playerX = 0
-    self.playerY = 0
+    self.enemyX = 0
+    self.enemyY = 0
     self.scale = 0
     self.enemySize = 0.5
     self.enemyOffsetX = 28
@@ -56,8 +56,8 @@ enemy.new = function(x, y, physicsWorld)
         love.graphics.draw(
             self.enemySprites,
             self.activeFrame,
-            self.playerX + screenX,
-            self.playerY + screenY,
+            self.enemyX + screenX,
+            self.enemyY + screenY,
             0,
             self.scale,
             self.enemySize
@@ -73,11 +73,11 @@ enemy.new = function(x, y, physicsWorld)
     end
 
     self.getX = function()
-        return self.playerX
+        return self.enemyX
     end
 
     self.getY = function()
-        return self.playerY
+        return self.enemyY
     end
 
     self.stop = function()
@@ -162,8 +162,8 @@ enemy.new = function(x, y, physicsWorld)
             self.scale = self.enemySize
         end
 
-        self.playerX = self.physics.body:getX() + offset
-        self.playerY = self.physics.body:getY() - self.enemyOffsetY
+        self.enemyX = self.physics.body:getX() + offset
+        self.enemyY = self.physics.body:getY() - self.enemyOffsetY
     end
 
     return self
