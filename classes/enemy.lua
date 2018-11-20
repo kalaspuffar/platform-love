@@ -68,6 +68,10 @@ enemy.new = function(x, y, physicsWorld)
         return "enemy"
     end
 
+    self.canHurt = function()
+        return 1
+    end
+
     self.getX = function()
         return self.playerX
     end

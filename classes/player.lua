@@ -98,8 +98,9 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         self.jumps = 0
     end
 
-    self.hurt = function(self, coll)
-        self.health = self.health - 1
+    self.hurt = function(self, coll, loss)
+        print("AOH")
+        self.health = self.health - loss
     end
 
     self.getHealthLeft = function()

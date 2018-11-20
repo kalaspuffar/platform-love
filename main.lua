@@ -212,30 +212,39 @@ function love.keypressed(key)
 end
 
 function beginContact(a, b, coll)
-    if(a:isSensor() and a:getUserData().properties) then
-        if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
-            mainDialog:startScript(a:getUserData().properties.script)
-            a:destroy()
-        end
-        if(a:getUserData().properties.type == 'despawn' and b:getUserData():type() == 'spawnable') then
-            b:getUserData():destroy()
-        end
-        if(a:getUserData().properties.type == 'reveal' and b:getUserData():type() == 'player') then
-            map.layers.hidden.opacity = 0
-            for k,v in pairs(collectables) do
-                v:showHidden()
+    if(a:isSensor()) then
+        if(a:getUserData().properties) then
+            if(a:getUserData().properties.type == 'dialog' and b:getUserData():type() == 'player') then
+                mainDialog:startScript(a:getUserData().properties.script)
+                a:destroy()
+            end
+            if(a:getUserData().properties.type == 'despawn' and b:getUserData():type() == 'spawnable') then
+                b:getUserData():destroy()
+            end
+            if(a:getUserData().properties.type == 'reveal' and b:getUserData():type() == 'player') then
+                map.layers.hidden.opacity = 0
+                for k,v in pairs(collectables) do
+                    v:showHidden()
+                end
             end
         end
-    elseif(a:isSensor() and a:getUserData().type) then
-        if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
-            a:getUserData():collect()
-            a:destroy()
-            score = score + 20
+        if(a:getUserData().type) then
+            if(a:getUserData():type() == "collectable" and b:getUserData():type() == 'player') then
+                a:getUserData():collect()
+                a:destroy()
+                score = score + 20
+            end
         end
-    elseif(not a:isSensor() and b:getUserData().type() == 'player') then
-        nx, ny = coll:getNormal()
-        if(ny < 0) then
-            b:getUserData():landed()
+    end
+
+    if(not a:isSensor() and b:getUserData().type() == 'player') then
+        if(a:getUserData().canHurt) then
+            b:getUserData():hurt(coll, a:getUserData():canHurt())
+        else
+            nx, ny = coll:getNormal()
+            if(ny < 0) then
+                b:getUserData():landed()
+            end
         end
     end
 end
