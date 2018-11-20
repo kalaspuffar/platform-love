@@ -19,6 +19,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.maxHealth = 10
     self.health = self.maxHealth
     self.maxVelocity = 100
+    self.walkAnimTime = 0.2
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -37,7 +38,6 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.physics.fixture:setUserData(self)
     self.physics.body:setFixedRotation(true)
     self.physics.body:setLinearDamping(0.1)
-
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
     self.walkSound:setVolume(0.05)
@@ -76,7 +76,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     end
 
     self.moveLeft = function()
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
+        local velocity = self.getVelocity()
 
         self.goingRight = false
 
@@ -86,7 +86,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     end
 
     self.moveRight = function()
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
+        local velocity = self.getVelocity()
 
         self.goingRight = true
         if(velocity < self.maxVelocity) then
@@ -102,18 +102,42 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         self.health = self.health - 1
     end
 
+    self.getHealthLeft = function()
+        return self.health / self.maxHealth
+    end
+
+    self.getSprintTimeLeft = function()
+        return self.sprintTime / self.maxSprint
+    end
+
+    self.clampVelocity = function()
+        if(self.getVelocity() > 100) then
+            self.physics.body:applyLinearImpulse(-50, 0)
+        end
+        if(self.getVelocity() < -100) then
+            self.physics.body:applyLinearImpulse(50, 0)
+        end
+        self.maxVelocity = 100
+        self.walkAnimTime = 0.2
+    end
+
     self.sprint = function(self, dt, sprinting)
         if(sprinting) then
             if(self.sprintTime > 0) then
                 self.maxVelocity = 200
+                self.walkAnimTime = 0.1
+                self.sprintTime = self.sprintTime - dt
             else
-                self.maxVelocity = 100
+                if(self.sprintTime < self.maxSprint) then
+                    self.sprintTime = self.sprintTime + dt
+                end
+                self.clampVelocity()
             end
-            self.sprintTime = self.sprintTime - dt
         else
             if(self.sprintTime < self.maxSprint) then
                 self.sprintTime = self.sprintTime + dt
             end
+            self.clampVelocity()
         end
     end
 
@@ -133,10 +157,14 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         return self.screenY
     end
 
+    self.getVelocity = function()
+        return ({self.physics.body:getLinearVelocity()})[1];
+    end
+
     self.update = function(self, dt)
         self.elapsedTime = self.elapsedTime + dt
 
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
+        local velocity = self.getVelocity()
 
         if(velocity < 10 and velocity > -10) then
             if(self.walkSound:isPlaying()) then
@@ -156,13 +184,13 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
             if(not self.walkSound:isPlaying()) then
                 self.walkSound:play()
             end
-            if(self.currentFrame == 3 and self.elapsedTime > 0.2) then
+            if(self.currentFrame == 3 and self.elapsedTime > self.walkAnimTime) then
                 self.currentFrame = 4
                 self.elapsedTime = 0
-            elseif(self.currentFrame == 4 and self.elapsedTime > 0.2) then
+            elseif(self.currentFrame == 4 and self.elapsedTime > self.walkAnimTime) then
                 self.currentFrame = 5
                 self.elapsedTime = 0
-            elseif(self.currentFrame == 5 and self.elapsedTime > 0.2) then
+            elseif(self.currentFrame == 5 and self.elapsedTime > self.walkAnimTime) then
                 self.currentFrame = 3
                 self.elapsedTime = 0
             elseif(self.currentFrame < 3) then

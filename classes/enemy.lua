@@ -45,7 +45,7 @@ enemy.new = function(x, y, physicsWorld)
     self.enemySpritesJson = json.decode(love.filesystem.read('assets/characters/mush/running.json'))
     for k, v in pairs(self.enemySpritesJson.frames) do
         self.frames[k] = love.graphics.newQuad(
-            v.frame.x, v.frame.y, v.frame.w, v.frame.h, 
+            v.frame.x, v.frame.y, v.frame.w, v.frame.h,
             self.enemySprites:getDimensions()
         )
     end
@@ -85,16 +85,14 @@ enemy.new = function(x, y, physicsWorld)
     end
 
     self.moveLeft = function()
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
-        if(velocity > -10) then
+        if(self.getVelocity() > -10) then
             self.physics.body:applyLinearImpulse(-200, 0)
         end
         self.goingRight = true
     end
 
     self.moveRight = function()
-        local velocity = ({self.physics.body:getLinearVelocity()})[1];
-        if(velocity < 10) then
+        if(self.getVelocity() < 10) then
             self.physics.body:applyLinearImpulse(200, 0)
         end
         self.goingRight = false
@@ -109,7 +107,7 @@ enemy.new = function(x, y, physicsWorld)
         end
     end
 
-    self.getVelocity = function() 
+    self.getVelocity = function()
         return ({self.physics.body:getLinearVelocity()})[1];
     end
 
@@ -141,9 +139,9 @@ enemy.new = function(x, y, physicsWorld)
         end
 
         if(self.walkSound:isPlaying()) then
-            self.walkSound:stop()            
+            self.walkSound:stop()
         end
-        if(self.elapsedTime > 0.01) then            
+        if(self.elapsedTime > 0.01) then
             self.currentFrame = self.currentFrame + 1
             if(self.currentFrame > table.getn(self.frames)) then
                 self.currentFrame = 1

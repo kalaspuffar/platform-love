@@ -171,8 +171,22 @@ function love.draw()
 	--love.graphics.setColor(255, 0, 0)
     --map:box2d_draw(hero:getScreenX(), hero:getScreenY())
 
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", 0, 0, windowWidth, 40)
+
+
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Score: " .. score, 20, 20, 0, 2, 2)
+    love.graphics.print("Score: " .. score, 20, 5, 0, 2, 2)
+
+    love.graphics.setColor(0, 0, 255)
+    love.graphics.rectangle("fill", 200, 10, hero:getSprintTimeLeft() * 100, 20)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle("line", 200, 10, 100, 20)
+
+    love.graphics.setColor(255, 0, 0)
+    love.graphics.rectangle("fill", 350, 10, hero:getHealthLeft() * 100, 20)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle("line", 350, 10, 100, 20)
 end
 
 function love.keypressed(key)
