@@ -39,7 +39,9 @@ collectable.new = function(x, y, physicsWorld, valueType)
         if(not (self.valueType == "hidden_gem")) then
             return
         end
-        self.visible = true
+        if(self.physics.fixture) then
+            self.visible = true
+        end
     end
 
     self.hideHidden = function()
@@ -52,7 +54,8 @@ collectable.new = function(x, y, physicsWorld, valueType)
     self.collect = function() 
         self.collectGemSound:play()
         self.visible = false
-        self.physics.fixture:destroy()  
+        self.physics.fixture:destroy()
+        self.physics.fixture = false  
     end
 
     self.draw = function(self, screenX, screenY)

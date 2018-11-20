@@ -13,12 +13,13 @@ local windowWidth
 local map
 local world
 local backgroundSound
+local sparkleSound
 
 local enemies = {}
 local collectables = {}
 local spawnPoints = {}
 local hero
-local mute = false
+local mute = true
 
 local elapsedTime = 0
 local score = 0
@@ -48,6 +49,10 @@ function love.load()
     backgroundSound = love.audio.newSource("assets/sound/Kevin_MacLeod_-_Clean_Soul.mp3", "stream")
     backgroundSound:setLooping(true)
     backgroundSound:setVolume(0.3)
+
+    sparkleSound = love.audio.newSource("assets/sound/sparkle.wav", "static")
+    sparkleSound:setVolume(0.5)                
+
     if(not mute) then
         backgroundSound:play()
     end
@@ -128,23 +133,20 @@ function love.update(dt)
     map:update(dt)
     hero:update(dt)
 
-    local destroyKeys = {}
+    local newEnemies = {}
     for k,v in pairs(enemies) do
-        if(v.destroyed()) then
-            destroyKeys[k] = true
+        if(not v.destroyed()) then
+            table.insert(newEnemies, v)
         end
         v:update(dt, map)
     end
 
-    if(elapsedTime > 10) then
-        for k,v in pairs(destroyKeys) do
-            table.remove(enemies, k)
-        end
+    enemies = newEnemies
 
+    if(elapsedTime > 10) then
         for k,v in pairs(spawnPoints) do
             table.insert(enemies, barrel.new(v.x, v.y, world))
         end
-
         elapsedTime = 0
     end
     mainDialog:update(dt)
@@ -153,6 +155,12 @@ end
 function love.draw()
     if not map then
         love.load()
+    end
+
+    if(hero.gameOver) then
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.print("Game over!", windowWidth / 2 - 150, windowHeight / 2 - 40, 0, 5, 5)
+        return
     end
 
     love.graphics.setColor(255, 255, 255)
@@ -173,7 +181,6 @@ function love.draw()
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, windowWidth, 40)
-
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score: " .. score, 20, 5, 0, 2, 2)
@@ -223,6 +230,7 @@ function beginContact(a, b, coll)
             end
             if(a:getUserData().properties.type == 'reveal' and b:getUserData():type() == 'player') then
                 map.layers.hidden.opacity = 0
+                sparkleSound:play()
                 for k,v in pairs(collectables) do
                     v:showHidden()
                 end
@@ -237,9 +245,15 @@ function beginContact(a, b, coll)
         end
     end
 
+    if(not b:isSensor() and a:getUserData().type and a:getUserData().type() == 'player') then
+        if(b:getUserData().canHurt) then
+            a:getUserData():hurt(coll, b:getUserData():canHurt(), true)
+        end
+    end
+
     if(not a:isSensor() and b:getUserData().type() == 'player') then
         if(a:getUserData().canHurt) then
-            b:getUserData():hurt(coll, a:getUserData():canHurt())
+            b:getUserData():hurt(coll, a:getUserData():canHurt(), false)
         else
             nx, ny = coll:getNormal()
             if(ny < 0) then

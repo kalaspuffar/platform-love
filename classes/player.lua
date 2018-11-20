@@ -16,10 +16,11 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.maxJumps = 1
     self.maxSprint = 3
     self.sprintTime = self.maxSprint
-    self.maxHealth = 10
+    self.maxHealth = 5
     self.health = self.maxHealth
     self.maxVelocity = 100
     self.walkAnimTime = 0.2
+    self.gameOver = false
 
     self.physics = {}
     self.physics.world = physicsWorld
@@ -41,6 +42,10 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
 
     self.walkSound = love.audio.newSource("assets/sound/stepdirt_1.wav", "static")
     self.walkSound:setVolume(0.05)
+    self.hurtSound = love.audio.newSource("assets/sound/impact.wav", "queue")
+    self.hurtSound:setVolume(0.5)
+    self.diedSound = love.audio.newSource("assets/sound/died.wav", "static")
+    self.diedSound:setVolume(0.5)
     self.jumpSound = love.audio.newSource("assets/sound/jump_03.wav", "static")
     self.jumpSound:setVolume(0.05)
 
@@ -53,6 +58,12 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     self.frames[3] = love.graphics.newQuad(0, 72, 32, 48, self.playerFile:getDimensions())
     self.frames[4] = love.graphics.newQuad(36, 72, 32, 48, self.playerFile:getDimensions())
     self.frames[5] = love.graphics.newQuad(72, 72, 32, 48, self.playerFile:getDimensions())
+
+    self.frames[6] = love.graphics.newQuad(0, 200, 32, 48, self.playerFile:getDimensions())
+    self.frames[7] = love.graphics.newQuad(36, 200, 32, 48, self.playerFile:getDimensions())
+    self.frames[8] = love.graphics.newQuad(72, 200, 32, 48, self.playerFile:getDimensions())
+    self.frames[9] = love.graphics.newQuad(108, 200, 32, 48, self.playerFile:getDimensions())
+
     self.activeFrame = self.frames[self.currentFrame]
 
     self.draw = function()
@@ -76,6 +87,9 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     end
 
     self.moveLeft = function()
+        if(self.health == 0) then
+            return
+        end
         local velocity = self.getVelocity()
 
         self.goingRight = false
@@ -86,6 +100,9 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     end
 
     self.moveRight = function()
+        if(self.health == 0) then
+            return
+        end
         local velocity = self.getVelocity()
 
         self.goingRight = true
@@ -98,9 +115,25 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
         self.jumps = 0
     end
 
-    self.hurt = function(self, coll, loss)
-        print("AOH")
-        self.health = self.health - loss
+    self.hurt = function(self, coll, loss, gothit)
+        if(self.health == 0) then
+            return
+        end
+        nx, ny = coll:getNormal()
+
+        if(gothit) then
+            self.physics.body:applyLinearImpulse(-nx * 1000, -ny * 200)
+        else
+            self.physics.body:applyLinearImpulse(nx * 1000, ny * 200)
+        end
+
+        if(self.health > 1) then
+            self.health = self.health - loss
+            self.hurtSound:play()
+        else
+            self.health = 0
+            self.diedSound:play()            
+        end
     end
 
     self.getHealthLeft = function()
@@ -143,6 +176,10 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
     end
 
     self.jump = function()
+        if(self.health == 0) then
+            return
+        end
+
         if(self.jumps < self.maxJumps) then
             self.jumps = self.jumps + 1
             self.jumpSound:play()
@@ -178,7 +215,7 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
             elseif(self.currentFrame == 2 and self.elapsedTime > 0.3) then
                 self.currentFrame = 1
                 self.elapsedTime = 0
-            elseif(self.currentFrame > 2) then
+            elseif(self.currentFrame > 2 and self.currentFrame < 6) then
                 self.currentFrame = 1
             end
         else
@@ -194,11 +231,24 @@ player.new = function(x, y, physicsWorld, windowHalfWidth, windowHalfHeight)
             elseif(self.currentFrame == 5 and self.elapsedTime > self.walkAnimTime) then
                 self.currentFrame = 3
                 self.elapsedTime = 0
-            elseif(self.currentFrame < 3) then
+            elseif(self.currentFrame < 3 and self.currentFrame < 6) then
                 self.currentFrame = 3
             end
         end
+
+        if(self.currentFrame < 6 and self.health == 0 and self.elapsedTime > 0.5) then
+            self.currentFrame = 6
+            self.elapsedTime = 0
+        elseif(self.currentFrame < 9 and self.health == 0 and self.elapsedTime > 0.5) then
+            self.currentFrame = self.currentFrame + 1            
+            self.elapsedTime = 0
+        end
+
         self.activeFrame = self.frames[self.currentFrame]
+
+        if(self.health == 0 and self.currentFrame == 9 and self.elapsedTime > 5) then
+            self.gameOver = true
+        end
 
         self.scale = 2
         local offset = -32
